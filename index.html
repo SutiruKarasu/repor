@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Dev Portfolio | Professional</title>
+    <title>Edi Kolgeci | Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Navigation -->
     <nav id="navbar">
         <div class="logo">Dev<span>.</span>Portfolio</div>
         <ul class="nav-links">
@@ -25,30 +22,28 @@
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content hidden">
+        <div class="container hidden">
             <h1>Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
             <h2>I am a <span class="typewriter"></span></h2>
             <p>Transforming complex problems into elegant, high-performance web solutions.</p>
-            <a href="#projects" class="btn">View My Work</a>
-        </div>
-        <div class="scroll-indicator">
-            <i class="fa-solid fa-chevron-down"></i>
+            <div class="hero-btns">
+                <a href="#projects" class="btn">View My Work</a>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="about">
         <div class="container hidden">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <p class="about-description">
                     As a passionate web developer, I love working at the intersection of design and technology. 
-                    My goal is to create user-centric experiences that not only look fantastic but also function perfectly under the hood.
+                    I focus on creating user-centric experiences that look fantastic and perform flawlessly.
                 </p>
-                
-                <!-- Statistics Tiles -->
                 <div class="stats-grid">
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-code-branch"></i>
@@ -70,20 +65,19 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container hidden">
-            <h2 class="section-title">Technical Skills</h2>
+            <h2 class="section-title">Skills</h2>
             <div class="skills-grid">
                 <div class="skill-card glass-panel">
                     <i class="fa-brands fa-react"></i>
                     <h3>Frontend</h3>
-                    <p>React, Next.js, TypeScript, Tailwind CSS</p>
+                    <p>React, Next.js, TypeScript, Tailwind</p>
                 </div>
                 <div class="skill-card glass-panel">
                     <i class="fa-brands fa-node"></i>
                     <h3>Backend</h3>
-                    <p>Node.js, PostgreSQL, MongoDB, REST APIs</p>
+                    <p>Node.js, PostgreSQL, MongoDB, APIs</p>
                 </div>
                 <div class="skill-card glass-panel">
                     <i class="fa-solid fa-layer-group"></i>
@@ -94,7 +88,6 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container hidden">
             <h2 class="section-title">Selected Projects</h2>
@@ -119,11 +112,9 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container hidden">
             <h2 class="section-title">Let's Connect</h2>
-            <!-- Update the email address below to receive messages -->
             <form action="https://formspree.io/f/kolgeciedi5@gmail.com" method="POST" class="contact-form glass-panel">
                 <div class="input-group">
                     <input type="text" name="name" required placeholder="Full Name">
@@ -140,7 +131,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Developer Portfolio. Built with <i class="fa-solid fa-bolt" style="color: #00ffcc;"></i></p>
+        <p>&copy; 2026 Edi Kolgeci. Built with <i class="fa-solid fa-bolt" style="color: #00ffcc;"></i></p>
     </footer>
 
     <script src="script.js"></script>
