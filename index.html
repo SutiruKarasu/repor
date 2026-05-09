@@ -12,20 +12,23 @@
     <div class="cursor-follower"></div>
 
     <nav id="navbar">
-        <div class="logo">Dev<span>.</span>Portfolio</div>
-        <ul class="nav-links">
-            <li><a href="#home" data-key="nav_home">Home</a></li>
-            <li><a href="#about" data-key="nav_about">About</a></li>
-            <li><a href="#skills" data-key="nav_skills">Skills</a></li>
-            <li><a href="#projects" data-key="nav_projects">Projects</a></li>
-            <li><a href="#contact" data-key="nav_contact">Contact</a></li>
-            <li class="lang-switch">
-                <button onclick="setLanguage('en')">EN</button>
-                <button onclick="setLanguage('de')">DE</button>
-                <button onclick="setLanguage('cs')">CS</button>
-            </li>
-        </ul>
-    </nav>
+    <div class="logo">Dev<span>.</span>Portfolio</div>
+    
+    <!-- Die Sprachbuttons kommen hierhin, damit sie IMMER sichtbar sind -->
+    <div class="lang-switch">
+        <button onclick="setLanguage('en')">EN</button>
+        <button onclick="setLanguage('de')">DE</button>
+        <button onclick="setLanguage('cs')">CS</button>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#home" data-key="nav_home">Home</a></li>
+        <li><a href="#about" data-key="nav_about">About</a></li>
+        <li><a href="#skills" data-key="nav_skills">Skills</a></li>
+        <li><a href="#projects" data-key="nav_projects">Projects</a></li>
+        <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+    </ul>
+</nav>
 
     <section id="home" class="hero">
         <div class="container hidden">
