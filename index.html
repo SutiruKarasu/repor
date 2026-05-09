@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edi Kolgeci | Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome für die Icons aus deinen Screenshots -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Cursor-Elemente -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
+    <!-- Navigation -->
     <nav id="navbar">
         <div class="logo">Dev<span>.</span>Portfolio</div>
         <ul class="nav-links">
@@ -22,6 +25,7 @@
         </ul>
     </nav>
 
+    <!-- Hero Section (Optimiert für Mobile-Ansicht aus image_1.png) -->
     <section id="home" class="hero">
         <div class="container hidden">
             <h1>Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
@@ -36,6 +40,7 @@
         </div>
     </section>
 
+    <!-- About Section (Statistiken aus image_2.png) -->
     <section id="about" class="about">
         <div class="container hidden">
             <h2 class="section-title">About Me</h2>
@@ -65,19 +70,20 @@
         </div>
     </section>
 
+    <!-- Skills Section (Layout aus image_5.png) -->
     <section id="skills" class="skills">
         <div class="container hidden">
-            <h2 class="section-title">Skills</h2>
+            <h2 class="section-title">Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-card glass-panel">
                     <i class="fa-brands fa-react"></i>
                     <h3>Frontend</h3>
-                    <p>React, Next.js, TypeScript, Tailwind</p>
+                    <p>React, Next.js, TypeScript, Tailwind CSS</p>
                 </div>
                 <div class="skill-card glass-panel">
                     <i class="fa-brands fa-node"></i>
                     <h3>Backend</h3>
-                    <p>Node.js, PostgreSQL, MongoDB, APIs</p>
+                    <p>Node.js, PostgreSQL, MongoDB, REST APIs</p>
                 </div>
                 <div class="skill-card glass-panel">
                     <i class="fa-solid fa-layer-group"></i>
@@ -88,6 +94,7 @@
         </div>
     </section>
 
+    <!-- Projects Section (Karten aus image_3.png) -->
     <section id="projects" class="projects">
         <div class="container hidden">
             <h2 class="section-title">Selected Projects</h2>
@@ -112,9 +119,11 @@
         </div>
     </section>
 
+    <!-- Contact Section (Behebt das Problem aus image_8.png) -->
     <section id="contact" class="contact">
         <div class="container hidden">
             <h2 class="section-title">Let's Connect</h2>
+            <!-- Dein funktionierender Formspree Endpoint -->
             <form action="https://formspree.io/f/xzdojayg" method="POST" class="contact-form glass-panel">
                 <div class="input-group">
                     <input type="text" name="name" required placeholder="Full Name">
