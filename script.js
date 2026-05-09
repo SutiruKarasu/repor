@@ -1,3 +1,41 @@
+// Funktion zum Setzen der Sprache
+async function setLanguage(lang) {
+    try {
+        // 1. Die Übersetzungsdatei laden
+        const response = await fetch('lang.json');
+        if (!response.ok) throw new Error('Sprachdatei konnte nicht geladen werden');
+        const translations = await response.json();
+
+        // 2. Alle Elemente mit dem Attribut [data-key] finden
+        document.querySelectorAll('[data-key]').forEach(element => {
+            const key = element.getAttribute('data-key');
+            
+            // Text austauschen, wenn der Key in der JSON existiert
+            if (translations[lang] && translations[lang][key]) {
+                // innerHTML wird genutzt, damit auch <span> (wie bei den Highlights) funktionieren
+                element.innerHTML = translations[lang][key];
+            }
+        });
+
+        // 3. Sprache im Browser speichern (damit sie beim Refresh bleibt)
+        localStorage.setItem('preferredLang', lang);
+        
+        // 4. HTML lang Attribut aktualisieren (gut für SEO)
+        document.documentElement.lang = lang;
+
+    } catch (error) {
+        console.error('Fehler beim Sprachwechsel:', error);
+    }
+}
+
+// Beim Laden der Seite die gespeicherte Sprache prüfen
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+    setLanguage(savedLang);
+});
+
+/* --- Dein restlicher Code (Typewriter, Cursor, etc.) kommt hier darunter --- */
+
 document.addEventListener('DOMContentLoaded', () => {
     // Custom Cursor
     const cursor = document.querySelector('.cursor');
