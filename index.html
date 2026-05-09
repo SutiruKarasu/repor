@@ -3,77 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mein Portfolio | Modernes Design</title>
-    <!-- Verbindung zur CSS-Datei -->
+    <title>Web Developer Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <header>
-        <div class="header-content">
-            <h1>Max Mustermann</h1>
-            <p>Webdesign | Entwicklung | Kreativität</p>
-        </div>
-    </header>
-
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#ueber-mich">Über mich</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#leistungen">Leistungen</a>
-        <a href="#kontakt">Kontakt</a>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">Dev<span>.</span>Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Über mich</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projekte</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
     </nav>
 
-    <div class="container">
-        
-        <section id="home">
-            <h2>Willkommen</h2>
-            <p>Hallo! Ich lerne gerade das Programmieren und das ist meine erste eigene Website. Hier präsentiere ich meine Fortschritte und Projekte.</p>
-        </section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content hidden">
+            <h1>Hallo, ich bin <span class="highlight">Max Mustermann</span></h1>
+            <h2>Ich bin ein <span class="typewriter"></span></h2>
+            <p>Ich verwandle komplexe Probleme in elegante, performante Web-Lösungen.</p>
+            <a href="#projects" class="btn">Meine Arbeiten ansehen</a>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
 
-        <section id="ueber-mich">
-            <h2>Über mich</h2>
-            <p>Ich interessiere mich für moderne Technologien und Design. Wenn ich nicht gerade Code schreibe, lerne ich neue Web-Frameworks oder gestalte Grafiken.</p>
-        </section>
-
-        <section id="portfolio">
-            <h2>Mein Portfolio</h2>
-            <div class="portfolio-grid">
-                <div class="project-card">
-                    <h3>Projekt Eins</h3>
-                    <p>Beschreibung meiner ersten HTML-Seite.</p>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container hidden">
+            <h2 class="section-title">Über Mich</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Als leidenschaftlicher Webentwickler liebe ich es, an der Schnittstelle von Design und Technologie zu arbeiten. Mein Ziel ist es, nutzerzentrierte Erlebnisse zu schaffen, die nicht nur fantastisch aussehen, sondern auch unter der Haube perfekt funktionieren.</p>
                 </div>
-                <div class="project-card">
-                    <h3>Projekt Zwei</h3>
-                    <p>Ein interaktives Tool mit JavaScript.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Projekt Drei</h3>
-                    <p>Mein erster Webshop-Prototyp.</p>
+                <div class="about-stats glass-panel">
+                    <div class="stat">
+                        <h3>5+</h3>
+                        <p>Jahre Erfahrung</p>
+                    </div>
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Erfolgreiche Projekte</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Kundenliebe</p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="leistungen">
-            <h2>Leistungen</h2>
-            <ul>
-                <li>Individuelles Webdesign</li>
-                <li>Responsive Layouts (Mobile First)</li>
-                <li>HTML5 & CSS3 Entwicklung</li>
-            </ul>
-        </section>
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container hidden">
+            <h2 class="section-title">Meine Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card glass-panel">
+                    <i class="fa-brands fa-html5"></i>
+                    <h3>Frontend</h3>
+                    <p>HTML, CSS, JavaScript, React, Vue.js</p>
+                </div>
+                <div class="skill-card glass-panel">
+                    <i class="fa-brands fa-node-js"></i>
+                    <h3>Backend</h3>
+                    <p>Node.js, Express, Python, SQL, MongoDB</p>
+                </div>
+                <div class="skill-card glass-panel">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h3>Design</h3>
+                    <p>UI/UX, Figma, Adobe XD, Animationen</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="kontakt">
-            <h2>Kontakt</h2>
-            <p>Lass uns zusammenarbeiten! Schreib mir einfach eine Nachricht:</p>
-            <p><strong>E-Mail:</strong> <a href="mailto:deine-email@beispiel.de">deine-email@beispiel.de</a></p>
-        </section>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container hidden">
+            <h2 class="section-title">Ausgewählte Projekte</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-img bg-1"></div>
+                    <div class="project-info glass-panel">
+                        <h3>E-Commerce Plattform</h3>
+                        <p>Eine voll skalierbare Shop-Lösung mit React und Stripe-Integration.</p>
+                        <a href="#" class="btn-small">Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img bg-2"></div>
+                    <div class="project-info glass-panel">
+                        <h3>SaaS Dashboard</h3>
+                        <p>Modernes Analytics-Dashboard mit Darkmode und Echtzeit-Daten.</p>
+                        <a href="#" class="btn-small">Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img bg-3"></div>
+                    <div class="project-info glass-panel">
+                        <h3>AI Image Generator</h3>
+                        <p>Web-App, die OpenAI's API nutzt, um Bilder aus Text zu generieren.</p>
+                        <a href="#" class="btn-small">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container hidden">
+            <h2 class="section-title">Lass uns reden!</h2>
+            <form class="contact-form glass-panel">
+                <div class="input-group">
+                    <input type="text" required placeholder="Dein Name">
+                </div>
+                <div class="input-group">
+                    <input type="email" required placeholder="Deine E-Mail">
+                </div>
+                <div class="input-group">
+                    <textarea required placeholder="Deine Nachricht" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn">Nachricht senden <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2026 Max Mustermann. Mit Stolz selbst programmiert.</p>
+        <p>&copy; 2026 Dev Portfolio. Built with <i class="fa-solid fa-heart" style="color: #00ffcc;"></i> and Coffee.</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
