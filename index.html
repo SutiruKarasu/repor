@@ -28,7 +28,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content hidden">
-            <h1>Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
+            <h1>Hi, I'm <span class="highlight">Edi Kolgeci (Karasu)</span></h1>
             <h2>I am a <span class="typewriter"></span></h2>
             <p>Transforming complex problems into elegant, high-performance web solutions.</p>
             <a href="#projects" class="btn">View My Work</a>
@@ -48,7 +48,7 @@
                     My goal is to create user-centric experiences that not only look fantastic but also function perfectly under the hood.
                 </p>
                 
-                <!-- Improved Statistics Tiles -->
+                <!-- Statistics Tiles -->
                 <div class="stats-grid">
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-code-branch"></i>
@@ -123,15 +123,16 @@
     <section id="contact" class="contact">
         <div class="container hidden">
             <h2 class="section-title">Let's Connect</h2>
-            <form class="contact-form glass-panel">
+            <!-- Update the email address below to receive messages -->
+            <form action="https://formspree.io/f/kolgeciedi5@gmail.com" method="POST" class="contact-form glass-panel">
                 <div class="input-group">
-                    <input type="text" required placeholder="Full Name">
+                    <input type="text" name="name" required placeholder="Full Name">
                 </div>
                 <div class="input-group">
-                    <input type="email" required placeholder="Email Address">
+                    <input type="email" name="email" required placeholder="Email Address">
                 </div>
                 <div class="input-group">
-                    <textarea required placeholder="Your Message" rows="5"></textarea>
+                    <textarea name="message" required placeholder="Your Message" rows="5"></textarea>
                 </div>
                 <button type="submit" class="btn">Send Message <i class="fa-solid fa-paper-plane"></i></button>
             </form>
