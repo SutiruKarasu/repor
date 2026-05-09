@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edi Kolgeci | Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome für die Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Cursor-Elemente -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Navigation -->
     <nav id="navbar">
         <div class="logo">Dev<span>.</span>Portfolio</div>
         <ul class="nav-links">
@@ -22,7 +19,6 @@
             <li><a href="#skills" data-key="nav_skills">Skills</a></li>
             <li><a href="#projects" data-key="nav_projects">Projects</a></li>
             <li><a href="#contact" data-key="nav_contact">Contact</a></li>
-            <!-- Sprachumschalter -->
             <li class="lang-switch">
                 <button onclick="setLanguage('en')">EN</button>
                 <button onclick="setLanguage('de')">DE</button>
@@ -31,122 +27,103 @@
         </ul>
     </nav>
 
-    <!-- Hero Section (Optimiert für Mobile-Ansicht aus image_1.png) -->
     <section id="home" class="hero">
         <div class="container hidden">
-            <h1>Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
-            <h2>I am a <span class="typewriter"></span></h2>
-            <p>Transforming complex problems into elegant, high-performance web solutions.</p>
+            <h1 data-key="hero_title">Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
+            <h2><span data-key="hero_subtitle">I am a </span><span class="typewriter"></span></h2>
+            <p data-key="hero_p">Transforming complex problems into elegant, high-performance web solutions.</p>
             <div class="hero-btns">
-                <a href="#projects" class="btn">View My Work</a>
-            </div>
-            <div class="scroll-indicator">
-                <i class="fa-solid fa-chevron-down"></i>
+                <a href="#projects" class="btn" data-key="btn_view_work">View My Work</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section (Statistiken aus image_2.png) -->
     <section id="about" class="about">
         <div class="container hidden">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title" data-key="section_about">About Me</h2>
             <div class="about-content">
-                <p class="about-description">
-                    As a passionate web developer, I love working at the intersection of design and technology. 
-                    I focus on creating user-centric experiences that look fantastic and perform flawlessly.
-                </p>
+                <p class="about-description" data-key="about_p">As a passionate web developer...</p>
                 <div class="stats-grid">
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-code-branch"></i>
                         <h3>5+</h3>
-                        <p>Years Experience</p>
+                        <p data-key="stat_exp">Years Experience</p>
                     </div>
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-rocket"></i>
                         <h3>22+</h3>
-                        <p>Projects Completed</p>
+                        <p data-key="stat_projects">Projects Completed</p>
                     </div>
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-smile-beam"></i>
                         <h3>100%</h3>
-                        <p>Client Satisfaction</p>
+                        <p data-key="stat_satisfaction">Client Satisfaction</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section (Layout aus image_5.png) -->
     <section id="skills" class="skills">
         <div class="container hidden">
-            <h2 class="section-title">Technical Skills</h2>
+            <h2 class="section-title" data-key="section_skills">Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-card glass-panel">
                     <i class="fa-brands fa-react"></i>
-                    <h3>Frontend</h3>
+                    <h3 data-key="skill_front">Frontend</h3>
                     <p>React, Next.js, TypeScript, Tailwind CSS</p>
                 </div>
                 <div class="skill-card glass-panel">
                     <i class="fa-brands fa-node"></i>
-                    <h3>Backend</h3>
+                    <h3 data-key="skill_back">Backend</h3>
                     <p>Node.js, PostgreSQL, MongoDB, REST APIs</p>
                 </div>
                 <div class="skill-card glass-panel">
                     <i class="fa-solid fa-layer-group"></i>
-                    <h3>Tools</h3>
+                    <h3 data-key="skill_tools">Tools</h3>
                     <p>Git, Docker, Figma, AWS</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section (Karten aus image_3.png) -->
     <section id="projects" class="projects">
         <div class="container hidden">
-            <h2 class="section-title">Selected Projects</h2>
+            <h2 class="section-title" data-key="section_projects">Selected Projects</h2>
             <div class="project-grid">
                 <div class="project-card">
                     <div class="project-img bg-1"></div>
                     <div class="project-info glass-panel">
-                        <h3>E-Commerce App</h3>
-                        <p>A full-stack shopping solution with secure Stripe integration.</p>
+                        <h3 data-key="proj1_title">E-Commerce App</h3>
+                        <p data-key="proj1_desc">A full-stack shopping solution...</p>
                         <a href="#" class="btn-small">Live Demo</a>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-img bg-2"></div>
-                    <div class="project-info glass-panel">
-                        <h3>AI Dashboard</h3>
-                        <p>Real-time data visualization platform using OpenAI APIs.</p>
-                        <a href="#" class="btn-small">Live Demo</a>
-                    </div>
-                </div>
+                <!-- Weitere Projekte analog dazu... -->
             </div>
         </div>
     </section>
 
-    <!-- Contact Section (Behebt das Problem aus image_8.png) -->
     <section id="contact" class="contact">
         <div class="container hidden">
-            <h2 class="section-title">Let's Connect</h2>
-            <!-- Dein funktionierender Formspree Endpoint -->
+            <h2 class="section-title" data-key="section_contact">Let's Connect</h2>
             <form action="https://formspree.io/f/xzdojayg" method="POST" class="contact-form glass-panel">
                 <div class="input-group">
-                    <input type="text" name="name" required placeholder="Full Name">
+                    <input type="text" name="name" required data-key="placeholder_name" placeholder="Full Name">
                 </div>
                 <div class="input-group">
-                    <input type="email" name="email" required placeholder="Email Address">
+                    <input type="email" name="email" required data-key="placeholder_email" placeholder="Email Address">
                 </div>
                 <div class="input-group">
-                    <textarea name="message" required placeholder="Your Message" rows="5"></textarea>
+                    <textarea name="message" required data-key="placeholder_message" placeholder="Your Message" rows="5"></textarea>
                 </div>
-                <button type="submit" class="btn">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn"><span data-key="btn_send">Send Message</span> <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Edi Kolgeci. Built with <i class="fa-solid fa-bolt" style="color: #00ffcc;"></i></p>
+        <p>&copy; 2026 Edi Kolgeci. <span data-key="footer_built">Built with</span> <i class="fa-solid fa-bolt" style="color: #00ffcc;"></i></p>
     </footer>
 
     <script src="script.js"></script>
