@@ -13,7 +13,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    cursor: none; /* Versteckt Standard-Cursor für den Custom-Effekt */
+    cursor: none; 
 }
 
 html {
@@ -51,7 +51,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/* --- 3. NAVIGATION --- */
+/* --- 3. NAVIGATION & LANG SWITCH --- */
 nav {
     position: fixed;
     top: 0;
@@ -82,6 +82,27 @@ nav {
 }
 
 .nav-links a:hover { color: var(--accent-color); }
+
+.lang-switch {
+    display: flex;
+    gap: 10px;
+}
+
+.lang-switch button {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.lang-switch button:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
 
 /* --- 4. LAYOUT & SECTIONS --- */
 section {
@@ -120,7 +141,7 @@ section {
     font-size: clamp(1.2rem, 5vw, 2.5rem); 
     color: #888; 
     margin-bottom: 25px;
-    min-height: 1.5em; /* Fix für flackernden Schreib-Effekt */
+    min-height: 1.5em;
 }
 
 .hero p {
@@ -135,147 +156,13 @@ section {
     padding-right: 5px;
 }
 
-/* --- 6. BUTTONS --- */
-.btn {
-    padding: 14px 35px;
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: var(--transition);
-    display: inline-block;
-}
-
-.btn:hover {
-    background: var(--accent-color);
-    color: #000;
-    box-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
-    transform: translateY(-3px);
-}
-
-/* --- 7. GRIDS (About, Skills, Projects) --- */
-.section-title {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    margin-bottom: 50px;
-    color: var(--accent-color);
-}
-
-.stats-grid, .skills-grid, .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    width: 100%;
-}
-
-.stat-card, .skill-card {
-    padding: 40px 20px;
-    transition: var(--transition);
-}
-
-.stat-card i, .skill-card i {
-    font-size: 2.5rem;
-    color: var(--accent-color);
-    margin-bottom: 15px;
-}
-
-/* --- 8. PROJECTS --- */
-.project-card {
-    height: 350px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-}
-
-.project-img {
-    width: 100%;
-    height: 100%;
-    transition: 0.5s;
-}
-
-.bg-1 { background: linear-gradient(45deg, #121212, #00ffcc); }
-.bg-2 { background: linear-gradient(45deg, #121212, #7000ff); }
-
-.project-info {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 20px;
-    background: rgba(0,0,0,0.85);
-    transform: translateY(100%);
-    transition: 0.4s ease;
-}
-
-.project-card:hover .project-info { transform: translateY(0); }
-
-/* --- 9. CONTACT FORM (Handy-Fix für image_8.png) --- */
-.contact-form {
-    width: 100%;
-    max-width: 650px;
-    padding: 40px 25px;
+/* --- 6. ABOUT ME (Mit Profilbild-Layout) --- */
+.about-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.input-group input, 
-.input-group textarea {
+    align-items: center;
+    gap: 40px;
     width: 100%;
-    padding: 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 16px; /* Wichtig für iOS (kein Zoom) */
-    outline: none;
-    transition: 0.3s;
 }
 
-.input-group input:focus, 
-.input-group textarea:focus {
-    border-color: var(--accent-color);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.contact-form .btn {
-    width: 100%;
-    cursor: pointer;
-    border: none;
-    background: var(--accent-color);
-    color: #000;
-}
-
-/* --- 10. ANIMATIONS & FOOTER --- */
-.hidden {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-}
-
-.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-footer {
-    padding: 40px;
-    text-align: center;
-    border-top: 1px solid var(--glass-border);
-    font-size: 0.9rem;
-    color: #666;
-}
-
-/* --- 11. MOBILE OPTIMIERUNG --- */
-@media (max-width: 768px) {
-    * { cursor: auto !important; } /* Custom Cursor am Handy aus */
-    .cursor, .cursor-follower { display: none; }
-    
-    nav { padding: 15px 5%; }
-    .nav-links { display: none; } /* Einfachheit halber auf Mobile aus */
-    
-    section { padding: 80px 5%; }
-    
-    .contact-form {
-        padding: 30px 15px;
-    }
-}
+/* Falls du das Profilbild-Layout nutzt
