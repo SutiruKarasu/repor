@@ -12,23 +12,22 @@
     <div class="cursor-follower"></div>
 
     <nav id="navbar">
-    <div class="logo">Dev<span>.</span>Portfolio</div>
-    
-    <!-- Die Sprachbuttons kommen hierhin, damit sie IMMER sichtbar sind -->
-    <div class="lang-switch">
-        <button onclick="setLanguage('en')">EN</button>
-        <button onclick="setLanguage('de')">DE</button>
-        <button onclick="setLanguage('cs')">CS</button>
-    </div>
+        <div class="logo">Dev<span>.</span>Portfolio</div>
+        
+        <div class="lang-switch">
+            <button onclick="setLanguage('en')">EN</button>
+            <button onclick="setLanguage('de')">DE</button>
+            <button onclick="setLanguage('cs')">CS</button>
+        </div>
 
-    <ul class="nav-links">
-        <li><a href="#home" data-key="nav_home">Home</a></li>
-        <li><a href="#about" data-key="nav_about">About</a></li>
-        <li><a href="#skills" data-key="nav_skills">Skills</a></li>
-        <li><a href="#projects" data-key="nav_projects">Projects</a></li>
-        <li><a href="#contact" data-key="nav_contact">Contact</a></li>
-    </ul>
-</nav>
+        <ul class="nav-links">
+            <li><a href="#home" data-key="nav_home">Home</a></li>
+            <li><a href="#about" data-key="nav_about">About</a></li>
+            <li><a href="#skills" data-key="nav_skills">Skills</a></li>
+            <li><a href="#projects" data-key="nav_projects">Projects</a></li>
+            <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+        </ul>
+    </nav>
 
     <section id="home" class="hero">
         <div class="container hidden">
@@ -45,7 +44,7 @@
         <div class="container hidden">
             <h2 class="section-title" data-key="section_about">About Me</h2>
             <div class="about-content">
-                <p class="about-description" data-key="about_p">As a passionate web developer...</p>
+                <p class="about-description" data-key="about_p">As a passionate web developer, I love working at the intersection of design and technology. I focus on creating user-centric experiences that look fantastic and perform flawlessly.</p>
                 <div class="stats-grid">
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-code-branch"></i>
@@ -94,15 +93,34 @@
         <div class="container hidden">
             <h2 class="section-title" data-key="section_projects">Selected Projects</h2>
             <div class="project-grid">
-                <div class="project-card">
-                    <div class="project-img bg-1"></div>
-                    <div class="project-info glass-panel">
+                
+                <div class="project-card glass-panel">
+                    <div class="project-image-wrapper">
+                        <img src="https://i.ibb.co/pBhh5K54/Gemini-Generated-Image-8bw3ae8bw3ae8bw3.png" alt="E-Commerce App Preview" class="project-img">
+                    </div>
+                    <div class="project-info">
                         <h3 data-key="proj1_title">E-Commerce App</h3>
-                        <p data-key="proj1_desc">A full-stack shopping solution...</p>
-                        <a href="#" class="btn-small">Live Demo</a>
+                        <p data-key="proj1_desc">A full-stack shopping solution with secure Stripe integration.</p>
+                        <div class="project-links">
+                            <a href="#" class="btn-small">Live Demo</a>
+                            <a href="#" class="btn-small secondary"><i class="fa-brands fa-github"></i> Code</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Weitere Projekte analog dazu... -->
+
+                <div class="project-card glass-panel">
+                    <div class="project-image-wrapper">
+                        <div class="project-img bg-2"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3 data-key="proj2_title">AI Dashboard</h3>
+                        <p data-key="proj2_desc">Real-time data visualization platform using OpenAI APIs.</p>
+                        <div class="project-links">
+                            <a href="#" class="btn-small">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
