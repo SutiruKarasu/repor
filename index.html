@@ -11,15 +11,17 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
+    <div id="imageModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="fullImage">
+    </div>
+
     <nav id="navbar">
         <div class="logo">Dev<span>.</span>Portfolio</div>
-        
         <div class="lang-switch">
-            <button onclick="setLanguage('en')">EN</button>
-            <button onclick="setLanguage('de')">DE</button>
-            <button onclick="setLanguage('cs')">CS</button>
+            <button onclick="setLanguage('en')" class="lang-btn active">EN</button>
+            <button onclick="setLanguage('de')" class="lang-btn">DE</button>
         </div>
-
         <ul class="nav-links">
             <li><a href="#home" data-key="nav_home">Home</a></li>
             <li><a href="#about" data-key="nav_about">About</a></li>
@@ -32,7 +34,7 @@
     <section id="home" class="hero">
         <div class="container hidden">
             <h1 data-key="hero_title">Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
-            <h2><span data-key="hero_subtitle">I am a </span><span class="typewriter"></span></h2>
+            <h2><span data-key="hero_subtitle">I build </span><span class="typewriter"></span></h2>
             <p data-key="hero_p">Transforming complex problems into elegant, high-performance web solutions.</p>
             <div class="hero-btns">
                 <a href="#projects" class="btn" data-key="btn_view_work">View My Work</a>
@@ -54,12 +56,12 @@
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-rocket"></i>
                         <h3>22+</h3>
-                        <p data-key="stat_projects">Projects Completed</p>
+                        <p data-key="stat_projects">Projects</p>
                     </div>
                     <div class="stat-card glass-panel">
                         <i class="fa-solid fa-smile-beam"></i>
                         <h3>100%</h3>
-                        <p data-key="stat_satisfaction">Client Satisfaction</p>
+                        <p data-key="stat_satisfaction">Satisfaction</p>
                     </div>
                 </div>
             </div>
@@ -94,25 +96,24 @@
             <h2 class="section-title" data-key="section_projects">Selected Projects</h2>
             <div class="project-grid">
                 
-                <div class="project-card glass-panel">
-                    <div class="project-image-wrapper">
-                        <img src="https://i.ibb.co/pBhh5K54/Gemini-Generated-Image-8bw3ae8bw3ae8bw3.png" alt="E-Commerce App Preview" class="project-img">
-                    </div>
-                    <div class="project-info">
+                <div class="project-card">
+                    <img src="https://i.ibb.co/pBhh5K54/Gemini-Generated-Image-8bw3ae8bw3ae8bw3.png" 
+                         alt="E-Commerce App" 
+                         class="project-img-bg"
+                         onclick="openLightbox(this.src)">
+                    <div class="project-overlay">
                         <h3 data-key="proj1_title">E-Commerce App</h3>
-                        <p data-key="proj1_desc">A full-stack shopping solution with secure Stripe integration.</p>
+                        <p data-key="proj1_desc">A full-stack shopping solution with Stripe integration.</p>
                         <div class="project-links">
                             <a href="#" class="btn-small">Live Demo</a>
-                            <a href="#" class="btn-small secondary"><i class="fa-brands fa-github"></i> Code</a>
+                            <a href="#" class="btn-small outline"><i class="fa-brands fa-github"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card glass-panel">
-                    <div class="project-image-wrapper">
-                        <div class="project-img bg-2"></div>
-                    </div>
-                    <div class="project-info">
+                <div class="project-card">
+                    <div class="project-img-bg fallback-bg-2"></div>
+                    <div class="project-overlay">
                         <h3 data-key="proj2_title">AI Dashboard</h3>
                         <p data-key="proj2_desc">Real-time data visualization platform using OpenAI APIs.</p>
                         <div class="project-links">
@@ -130,21 +131,21 @@
             <h2 class="section-title" data-key="section_contact">Let's Connect</h2>
             <form action="https://formspree.io/f/xzdojayg" method="POST" class="contact-form glass-panel">
                 <div class="input-group">
-                    <input type="text" name="name" required data-key="placeholder_name" placeholder="Full Name">
+                    <input type="text" name="name" required placeholder="Full Name">
                 </div>
                 <div class="input-group">
-                    <input type="email" name="email" required data-key="placeholder_email" placeholder="Email Address">
+                    <input type="email" name="email" required placeholder="Email Address">
                 </div>
                 <div class="input-group">
-                    <textarea name="message" required data-key="placeholder_message" placeholder="Your Message" rows="5"></textarea>
+                    <textarea name="message" required placeholder="Your Message" rows="5"></textarea>
                 </div>
-                <button type="submit" class="btn"><span data-key="btn_send">Send Message</span> <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn">Send Message <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Edi Kolgeci. <span data-key="footer_built">Built with</span> <i class="fa-solid fa-bolt" style="color: #00ffcc;"></i></p>
+        <p>&copy; 2026 Edi Kolgeci. Built with <i class="fa-solid fa-bolt" style="color: var(--accent-color);"></i></p>
     </footer>
 
     <script src="script.js"></script>
