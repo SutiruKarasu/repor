@@ -1,208 +1,449 @@
-/* --- 1. VARIABLES & SETUP --- */
-:root {
-    --bg-color: #050505; /* Noch tieferes Schwarz für Premium Look */
-    --text-color: #f0f0f0;
-    --accent-color: #00ffcc;
-    --glass-bg: rgba(255, 255, 255, 0.02);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+:root{
+
+--bg:#090b11;
+--card:#13151d;
+--accent:#e5b84e;
+--orange:#ff8b2b;
+--blue:#00e5ff;
+--text:#ffffff;
+--muted:#8d8d8d;
+--border:#272935;
+--correct:#2ecc71;
+--wrong:#ff4757;
+
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    cursor: none; /* Für Custom Cursor */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Montserrat',sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+body{
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
+background:var(--bg);
+color:var(--text);
+overflow:hidden;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 
-/* --- 2. CUSTOM CURSOR --- */
-.cursor {
-    position: fixed;
-    width: 8px; height: 8px;
-    background: var(--accent-color);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-}
-.cursor-follower {
-    position: fixed;
-    width: 30px; height: 30px;
-    border: 1px solid rgba(0, 255, 204, 0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.15s ease-out;
-    transform: translate(-50%, -50%);
 }
 
-/* --- 3. NAVBAR & LANG SWITCH --- */
-nav {
-    position: fixed; top: 0; width: 100%;
-    padding: 20px 8%;
-    display: flex; justify-content: space-between; align-items: center;
-    background: rgba(5, 5, 5, 0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
-    z-index: 1000;
-}
-.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px;}
-.logo span { color: var(--accent-color); }
+/* BACKGROUND */
 
-.lang-switch { display: flex; gap: 10px; }
-.lang-btn {
-    background: transparent;
-    border: none;
-    color: #666;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.lang-btn:hover, .lang-btn.active { color: var(--accent-color); }
+.background-gears{
 
-.nav-links { display: flex; list-style: none; gap: 30px; }
-.nav-links a { color: #ccc; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-.nav-links a:hover { color: var(--accent-color); }
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:0;
 
-/* --- 4. GLOBAL LAYOUT --- */
-section {
-    min-height: 100vh;
-    padding: 120px 5%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
-.container {
-    width: 100%; max-width: 1100px;
-    text-align: center;
-}
-.section-title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 60px;
-    color: #fff;
-}
-.glass-panel {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
 }
 
-/* --- 5. HERO & TYPEWRITER --- */
-.hero h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 10px; }
-.highlight { color: var(--accent-color); }
-.hero h2 { font-size: clamp(1.2rem, 4vw, 2rem); color: #888; margin-bottom: 30px; min-height: 40px;}
-.typewriter { border-right: 3px solid var(--accent-color); padding-right: 5px; animation: blink 0.8s infinite;}
-@keyframes blink { 50% { border-color: transparent; } }
-.hero p { max-width: 600px; margin: 0 auto 40px auto; color: #aaa; }
+.gear{
 
-/* --- 6. BUTTONS --- */
-.btn {
-    padding: 15px 35px;
-    background: transparent;
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
-    border-radius: 50px;
-    text-decoration: none; font-weight: 600;
-    transition: var(--transition); display: inline-block;
-}
-.btn:hover {
-    background: var(--accent-color); color: #000;
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.3); transform: translateY(-3px);
-}
-.btn-small {
-    padding: 8px 20px; background: var(--accent-color); color: #000;
-    text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 0.9rem; transition: 0.3s;
-}
-.btn-small.outline { background: transparent; border: 1px solid #fff; color: #fff; }
-.btn-small:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+position:absolute;
+border-radius:50%;
+border:8px solid rgba(255,255,255,0.04);
 
-/* --- 7. GRIDS (About & Skills) --- */
-.stats-grid, .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;
-}
-.stat-card, .skill-card { padding: 40px 20px; transition: var(--transition); }
-.stat-card:hover, .skill-card:hover { transform: translateY(-10px); border-color: rgba(0, 255, 204, 0.3); }
-.stat-card i, .skill-card i { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 20px; }
+box-shadow:
+0 0 20px rgba(255,255,255,0.03),
+inset 0 0 20px rgba(255,255,255,0.03);
 
-/* --- 8. PROJECTS (PERFEKTES OVERLAY) --- */
-.project-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
 }
-.project-card {
-    height: 400px; /* Feste Höhe für einheitlichen Look */
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden; /* Schneidet alles ab, was über den Rand geht */
-    border: 1px solid var(--glass-border);
-}
-.project-img-bg {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover; /* Bild füllt Karte perfekt aus */
-    transition: transform 0.6s ease;
-    cursor: zoom-in; /* Zeigt, dass es klickbar ist */
-}
-.fallback-bg-2 { background: linear-gradient(135deg, #121212, #3a0ca3); }
 
-/* Der Textbereich (versteckt, fährt hoch) */
-.project-overlay {
-    position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 30px; text-align: left;
-    transform: translateY(100%); /* Versteckt außerhalb der Karte */
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.gear::before{
+
+content:'';
+position:absolute;
+inset:15%;
+border-radius:50%;
+border:4px dashed rgba(255,255,255,0.05);
+
 }
-.project-card:hover .project-img-bg { transform: scale(1.08); }
-.project-card:hover .project-overlay { transform: translateY(0); /* Fährt hoch beim Hover */ }
 
-.project-overlay h3 { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 10px; }
-.project-overlay p { font-size: 0.95rem; color: #ccc; margin-bottom: 20px; }
-.project-links { display: flex; gap: 15px; }
+.gear1{
 
-/* --- 9. LIGHTBOX MODAL --- */
-.modal {
-    display: none; /* Standardmäßig unsichtbar */
-    position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
-    justify-content: center; align-items: center;
+width:400px;
+height:400px;
+top:-100px;
+left:-120px;
+
+animation:rotateLeft 35s linear infinite;
+
 }
-.modal-content { max-width: 90%; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
-.modal-close {
-    position: absolute; top: 20px; right: 40px;
-    color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
+
+.gear2{
+
+width:300px;
+height:300px;
+right:-80px;
+top:10%;
+
+animation:rotateRight 25s linear infinite;
+
 }
-.modal-close:hover { color: var(--accent-color); transform: scale(1.2); }
 
-/* --- 10. CONTACT FORM --- */
-.contact-form { max-width: 600px; margin: 0 auto; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
-.input-group input, .input-group textarea {
-    width: 100%; padding: 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
-    border-radius: 10px; color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+.gear3{
+
+width:500px;
+height:500px;
+bottom:-250px;
+left:20%;
+
+animation:rotateLeft 45s linear infinite;
+
 }
-.input-group input:focus, .input-group textarea:focus { border-color: var(--accent-color); background: rgba(255,255,255,0.08); }
-.contact-form .btn { width: 100%; cursor: pointer; background: var(--accent-color); color: #000; font-weight: bold; border: none;}
 
-/* --- 11. SCROLL ANIMATIONS --- */
-.hidden { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
-.show { opacity: 1; transform: translateY(0); }
+.gear4{
 
-/* --- 12. MOBILE RESPONSE --- */
-@media (max-width: 768px) {
-    * { cursor: auto !important; } .cursor, .cursor-follower { display: none; }
-    nav { padding: 15px 5%; } .nav-links { display: none; }
-    .project-card { height: 350px; }
-    /* Auf dem Handy ist das Overlay immer leicht sichtbar, da es keinen echten Hover gibt */
-    .project-overlay { transform: translateY(0); background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 100%);}
-    .contact-form { padding: 25px 15px; }
+width:250px;
+height:250px;
+bottom:10%;
+right:10%;
+
+animation:rotateRight 20s linear infinite;
+
+}
+
+@keyframes rotateLeft{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(-360deg);
+}
+
+}
+
+@keyframes rotateRight{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+#app{
+
+width:100%;
+max-width:480px;
+height:100vh;
+position:relative;
+z-index:2;
+
+}
+
+.screen{
+
+position:absolute;
+inset:0;
+display:none;
+flex-direction:column;
+padding:20px;
+
+}
+
+.screen.active{
+display:flex;
+}
+
+/* CARD */
+
+.login-card{
+
+background:rgba(19,21,29,0.92);
+
+border:1px solid rgba(255,255,255,0.05);
+
+backdrop-filter:blur(10px);
+
+border-radius:20px;
+
+padding:35px;
+
+margin:auto 0;
+
+}
+
+.logo-container{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+.logo-text{
+
+font-size:42px;
+font-weight:800;
+letter-spacing:2px;
+
+}
+
+.logo-sub{
+
+color:var(--accent);
+letter-spacing:5px;
+font-size:12px;
+
+}
+
+.intro-text{
+
+text-align:center;
+line-height:1.7;
+margin-bottom:25px;
+
+}
+
+.highlight{
+
+color:var(--accent);
+font-weight:700;
+
+}
+
+.input-group input{
+
+width:100%;
+background:#0d0f14;
+border:1px solid var(--border);
+color:white;
+padding:16px;
+border-radius:12px;
+outline:none;
+margin-bottom:20px;
+
+}
+
+.primary-btn{
+
+width:100%;
+padding:18px;
+border:none;
+border-radius:12px;
+background:var(--accent);
+font-weight:800;
+cursor:pointer;
+transition:0.2s;
+
+}
+
+.primary-btn:hover{
+transform:scale(1.02);
+}
+
+/* QUIZ */
+
+.quiz-header{
+
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+color:var(--muted);
+font-size:12px;
+
+}
+
+.timer-section{
+
+display:flex;
+justify-content:center;
+margin-bottom:30px;
+
+}
+
+.timer-ring{
+
+width:130px;
+height:130px;
+border-radius:50%;
+border:4px solid var(--accent);
+position:relative;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+box-shadow:0 0 30px rgba(229,184,78,0.25);
+
+transition:0.3s;
+
+}
+
+#clock-hand{
+
+position:absolute;
+width:4px;
+height:45%;
+background:var(--orange);
+
+bottom:50%;
+left:50%;
+
+transform-origin:bottom center;
+transform:translateX(-50%);
+
+border-radius:5px;
+
+}
+
+#time-display{
+
+font-size:40px;
+font-weight:800;
+
+}
+
+/* ALL OR NOTHING */
+
+.all-or-nothing{
+
+display:none;
+text-align:center;
+
+padding:15px;
+margin-bottom:20px;
+
+border-radius:14px;
+
+background:rgba(255,0,0,0.1);
+
+border:1px solid rgba(255,0,0,0.3);
+
+color:#ff5c5c;
+
+font-weight:800;
+
+animation:pulse 1s infinite;
+
+}
+
+.all-or-nothing.active{
+display:block;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.03);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+/* QUESTION */
+
+.question-section{
+
+margin-bottom:25px;
+text-align:center;
+
+}
+
+#question-text{
+line-height:1.5;
+}
+
+/* ANSWERS */
+
+.options-section{
+
+display:flex;
+flex-direction:column;
+gap:12px;
+
+}
+
+.answer-btn{
+
+background:#151822;
+border:1px solid var(--border);
+
+color:white;
+
+padding:18px;
+
+border-radius:14px;
+
+cursor:pointer;
+
+transition:0.2s;
+
+}
+
+.answer-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.answer-btn.correct{
+
+background:var(--correct);
+color:black;
+
+}
+
+.answer-btn.wrong{
+
+background:var(--wrong);
+
+}
+
+/* SCORE */
+
+.score-section{
+
+margin-top:auto;
+text-align:center;
+padding-top:20px;
+
+}
+
+#score-display{
+
+font-size:34px;
+font-weight:800;
+color:var(--accent);
+
+}
+
+/* RESULT */
+
+.result-card{
+text-align:center;
+}
+
+.result-name{
+
+color:var(--accent);
+margin:20px 0;
+
+}
+
+.stats-box{
+
+margin-top:20px;
+padding:20px;
+border-radius:14px;
+background:#0d0f14;
+
 }
