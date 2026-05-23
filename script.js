@@ -1,171 +1,175 @@
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // --- 1. CUSTOM CURSOR (Desktop only) ---
-    const cursor = document.querySelector(".cursor");
-    const follower = document.querySelector(".cursor-follower");
-    
-    if (window.matchMedia("(pointer: fine)").matches) {
-        document.addEventListener("mousemove", (e) => {
-            if(cursor && follower) {
-                cursor.style.left = e.clientX + "px";
-                cursor.style.top = e.clientY + "px";
-                setTimeout(() => {
-                    follower.style.left = e.clientX + "px";
-                    follower.style.top = e.clientY + "px";
-                }, 50);
-            }
-        });
-    }
+/* =========================================================
+   CLOCK INN QUIZ X
+========================================================= */
 
-    // --- 2. SCROLL ANIMATIONS (Fade In Effekt) ---
-    const hiddenElements = document.querySelectorAll('.hidden');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-            }
-        });
-    }, { threshold: 0.1 });
+const FORMSPREE_URL =
+"https://formspree.io/f/xzdojayg";
 
-    hiddenElements.forEach((el) => observer.observe(el));
+/* =========================================================
+   ONE ATTEMPT RESTRICTION
+========================================================= */
 
-    // --- 3. TYPEWRITER EFFEKT (Hero Section) ---
-    const words = ["Web Applications.", "User Interfaces.", "Digital Experiences."];
-    let i = 0; 
-    let j = 0; 
-    let isDeleting = false;
-    const typewriterElement = document.querySelector(".typewriter");
+window.onload = function(){
 
-    function type() {
-        if(!typewriterElement) return;
-        const currentWord = words[i];
-        
-        if (isDeleting) {
-            typewriterElement.textContent = currentWord.substring(0, j - 1);
-            j--;
-        } else {
-            typewriterElement.textContent = currentWord.substring(0, j + 1);
-            j++;
-        }
+const alreadyPlayed =
+localStorage.getItem("quiz_completed");
 
-        let typeSpeed = isDeleting ? 50 : 100;
+if(alreadyPlayed === "true"){
 
-        if (!isDeleting && j === currentWord.length) {
-            typeSpeed = 2000; 
-            isDeleting = true;
-        } else if (isDeleting && j === 0) {
-            isDeleting = false;
-            i = (i + 1) % words.length;
-            typeSpeed = 500;
-        }
+document.getElementById("start-screen")
+.innerHTML = `
 
-        setTimeout(type, typeSpeed);
-    }
-    type();
-});
+<div class="login-card"
+style="text-align:center;">
 
-// --- 4. LIGHTBOX FUNKTION (Bilder groß anzeigen) ---
-window.openLightbox = function(src) {
-    const modal = document.getElementById("imageModal");
-    const fullImg = document.getElementById("fullImage");
-    if(modal && fullImg) {
-        modal.style.display = "flex";
-        fullImg.src = src;
-    }
-}
+<h1 style="
+color:#ff4757;
+margin-bottom:20px;
+">
+SHIFT DENIED
+</h1>
 
-// Modal Schließen Logik
-const modalClose = document.querySelector(".modal-close");
-if(modalClose) {
-    modalClose.onclick = () => {
-        document.getElementById("imageModal").style.display = "none";
-    }
-}
+<p style="
+line-height:1.6;
+margin-bottom:25px;
+">
+You already completed this shift.
+<br>
+Only one attempt is allowed.
+</p>
 
-window.onclick = (e) => {
-    const modal = document.getElementById("imageModal");
-    if (e.target === modal) modal.style.display = "none";
-}
+<button
+id="reset-attempt"
+class="primary-btn"
+>
+RESET SESSION
+</button>
 
-// --- 5. MULTI-LANGUAGE LOGIK (EN, DE, CS) ---
-const translations = {
-    "en": {
-        "nav_home": "Home", "nav_about": "About", "nav_skills": "Skills", "nav_projects": "Projects", "nav_contact": "Contact",
-        "hero_title": "Hi, I'm <span class='highlight'>Edi Kolgeci</span>",
-        "hero_subtitle": "I build ",
-        "hero_p": "Transforming complex problems into elegant, high-performance web solutions.",
-        "btn_view_work": "View My Work",
-        "section_about": "About Me",
-        "about_p": "As a passionate web developer, I love working at the intersection of design and technology. I focus on creating user-centric experiences.",
-        "stat_exp": "Years Experience", "stat_projects": "Projects", "stat_satisfaction": "Satisfaction",
-        "section_skills": "Technical Skills", "skill_front": "Frontend", "skill_back": "Backend", "skill_tools": "Tools",
-        "section_projects": "Selected Projects",
-        "proj1_title": "E-Commerce App", "proj1_desc": "A full-stack shopping solution with Stripe integration.",
-        "proj2_title": "AI Dashboard", "proj2_desc": "Real-time data visualization platform using OpenAI APIs.",
-        "section_contact": "Let's Connect", "btn_send": "Send Message"
-    },
-    "de": {
-        "nav_home": "Start", "nav_about": "Über mich", "nav_skills": "Skills", "nav_projects": "Projekte", "nav_contact": "Kontakt",
-        "hero_title": "Hallo, ich bin <span class='highlight'>Edi Kolgeci</span>",
-        "hero_subtitle": "Ich entwickle ",
-        "hero_p": "Ich verwandle komplexe Probleme in elegante, leistungsstarke Web-Lösungen.",
-        "btn_view_work": "Projekte ansehen",
-        "section_about": "Über Mich",
-        "about_p": "Als leidenschaftlicher Webentwickler liebe ich es, an der Schnittstelle von Design und Technologie zu arbeiten.",
-        "stat_exp": "Jahre Erfahrung", "stat_projects": "Projekte", "stat_satisfaction": "Zufriedenheit",
-        "section_skills": "Fähigkeiten", "skill_front": "Frontend", "skill_back": "Backend", "skill_tools": "Tools",
-        "section_projects": "Ausgewählte Projekte",
-        "proj1_title": "E-Commerce App", "proj1_desc": "Eine Full-Stack-Lösung mit Stripe-Integration.",
-        "proj2_title": "AI Dashboard", "proj2_desc": "Echtzeit-Datenvisualisierung mit OpenAI APIs.",
-        "section_contact": "Kontakt aufnehmen", "btn_send": "Nachricht senden"
-    },
-    "cs": {
-        "nav_home": "Domů", "nav_about": "O mně", "nav_skills": "Dovednosti", "nav_projects": "Projekty", "nav_contact": "Kontakt",
-        "hero_title": "Ahoj, já jsem <span class='highlight'>Edi Kolgeci</span>",
-        "hero_subtitle": "Tvořím ",
-        "hero_p": "Proměňuji složité problémy v elegantní a výkonná webová řešení.",
-        "btn_view_work": "Moje práce",
-        "section_about": "O mně",
-        "about_p": "Jako vášnivý webový vývojář rád pracuji na pomezí designu a technologie.",
-        "stat_exp": "Let zkušeností", "stat_projects": "Projektů", "stat_satisfaction": "Spokojenost",
-        "section_skills": "Dovednosti", "skill_front": "Frontend", "skill_back": "Backend", "skill_tools": "Nástroje",
-        "section_projects": "Vybrané projekty",
-        "proj1_title": "E-Commerce App", "proj1_desc": "Full-stack nákupní řešení s integrací Stripe.",
-        "proj2_title": "AI Dashboard", "proj2_desc": "Platforma pro vizualizaci dat v reálném čase s OpenAI API.",
-        "section_contact": "Spojme se", "btn_send": "Odeslat zprávu"
-    }
+</div>
+
+`;
+
+document
+.getElementById("reset-attempt")
+.onclick = ()=>{
+
+localStorage.clear();
+location.reload();
+
 };
 
-window.setLanguage = function(lang) {
-    // Buttons updaten
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if(btn.textContent.trim().toLowerCase() === lang.toLowerCase()) {
-            btn.classList.add('active');
-        }
-    });
+}
 
-    // Texte mit data-key Attribut übersetzen
-    const elements = document.querySelectorAll("[data-key]");
-    elements.forEach(el => {
-        const key = el.getAttribute("data-key");
-        if (translations[lang] && translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
-        }
-    });
-
-    // Placeholder im Kontaktformular anpassen
-    const nameInput = document.querySelector('input[name="name"]');
-    const emailInput = document.querySelector('input[name="email"]');
-    const messageInput = document.querySelector('textarea[name="message"]');
-
-    const placeholders = {
-        "en": ["Full Name", "Email Address", "Your Message"],
-        "de": ["Vollständiger Name", "E-Mail-Adresse", "Deine Nachricht"],
-        "cs": ["Celé jméno", "E-mailová adresa", "Vaše zpráva"]
-    };
-
-    if(nameInput) nameInput.placeholder = placeholders[lang][0];
-    if(emailInput) emailInput.placeholder = placeholders[lang][1];
-    if(messageInput) messageInput.placeholder = placeholders[lang][2];
 };
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let currentQuestionIndex = 0;
+
+let score = 0;
+
+let streak = 0;
+
+let maxStreak = 0;
+
+let timeLeft = 10;
+
+let timerInterval;
+
+let isAnswered = false;
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+const tickSound =
+document.getElementById("tick-sound");
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+const quizData = [
+
+{
+topic:"Celebrity Secrets",
+q:"Which actor played The Rock before Hollywood?",
+a:["John Cena","Dwayne Johnson","Vin Diesel","Jason Statham"],
+c:1
+},
+
+{
+topic:"Nature",
+q:"Which animal has blue blood?",
+a:["Shark","Whale","Octopus","Seal"],
+c:2
+},
+
+{
+topic:"Disney",
+q:"What is Mickey Mouse's dog called?",
+a:["Bolt","Goofy","Pluto","Donald"],
+c:2
+},
+
+{
+topic:"Media",
+q:"Which show includes Stark family?",
+a:["Vikings","Game of Thrones","Breaking Bad","The Witcher"],
+c:1
+},
+
+{
+topic:"ALL OR NOTHING",
+q:"Which country celebrates Holi?",
+a:["India","Japan","China","Brazil"],
+c:0
+},
+
+{
+topic:"Gaming",
+q:"Which character eats dots?",
+a:["Mario","Pac-Man","Sonic","Pikachu"],
+c:1
+}
+
+];
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const startBtn =
+document.getElementById("start-btn");
+
+const startScreen =
+document.getElementById("start-screen");
+
+const quizScreen =
+document.getElementById("quiz-screen");
+
+const resultScreen =
+document.getElementById("result-screen");
+
+const answersContainer =
+document.getElementById("answers-container");
+
+const questionText =
+document.getElementById("question-text");
+
+const topicDisplay =
+document.getElementById("topic-display");
+
+const questionCounter =
+document.getElementById("question-counter");
+
+const scoreDisplay =
+document.getElementById("score-display");
+
+const streakBadge =
+document.getElementById("streak-badge");
+
+/* =========================================================
+   START
