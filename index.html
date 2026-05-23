@@ -1,154 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edi Kolgeci | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Clock Inn Quiz X</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 
-    <div id="imageModal" class="modal">
-        <span class="modal-close">&times;</span>
-        <img class="modal-content" id="fullImage">
-    </div>
+<!-- BACKGROUND GEARS -->
+<div class="background-gears">
 
-    <nav id="navbar">
-        <div class="logo">Dev<span>.</span>Portfolio</div>
-        <div class="lang-switch">
-            <button onclick="setLanguage('en')" class="lang-btn active">EN</button>
-            <button onclick="setLanguage('de')" class="lang-btn">DE</button>
-            <button onclick="setLanguage('cs')" class="lang-btn">CS</button>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home" data-key="nav_home">Home</a></li>
-            <li><a href="#about" data-key="nav_about">About</a></li>
-            <li><a href="#skills" data-key="nav_skills">Skills</a></li>
-            <li><a href="#projects" data-key="nav_projects">Projects</a></li>
-            <li><a href="#contact" data-key="nav_contact">Contact</a></li>
-        </ul>
-    </nav>
+<div class="gear gear1"></div>
+<div class="gear gear2"></div>
+<div class="gear gear3"></div>
+<div class="gear gear4"></div>
 
-    <section id="home" class="hero">
-        <div class="container hidden">
-            <h1 data-key="hero_title">Hi, I'm <span class="highlight">Edi Kolgeci</span></h1>
-            <h2><span data-key="hero_subtitle">I build </span><span class="typewriter"></span></h2>
-            <p data-key="hero_p">Transforming complex problems into elegant, high-performance web solutions.</p>
-            <div class="hero-btns">
-                <a href="#projects" class="btn" data-key="btn_view_work">View My Work</a>
-            </div>
-        </div>
-    </section>
+</div>
 
-    <section id="about" class="about">
-        <div class="container hidden">
-            <h2 class="section-title" data-key="section_about">About Me</h2>
-            <div class="about-content">
-                <p class="about-description" data-key="about_p">As a passionate web developer, I love working at the intersection of design and technology. I focus on creating user-centric experiences that look fantastic and perform flawlessly.</p>
-                <div class="stats-grid">
-                    <div class="stat-card glass-panel">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <h3>5+</h3>
-                        <p data-key="stat_exp">Years Experience</p>
-                    </div>
-                    <div class="stat-card glass-panel">
-                        <i class="fa-solid fa-rocket"></i>
-                        <h3>22+</h3>
-                        <p data-key="stat_projects">Projects</p>
-                    </div>
-                    <div class="stat-card glass-panel">
-                        <i class="fa-solid fa-smile-beam"></i>
-                        <h3>100%</h3>
-                        <p data-key="stat_satisfaction">Satisfaction</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div id="app">
 
-    <section id="skills" class="skills">
-        <div class="container hidden">
-            <h2 class="section-title" data-key="section_skills">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card glass-panel">
-                    <i class="fa-brands fa-react"></i>
-                    <h3 data-key="skill_front">Frontend</h3>
-                    <p>React, Next.js, TypeScript, Tailwind CSS</p>
-                </div>
-                <div class="skill-card glass-panel">
-                    <i class="fa-brands fa-node"></i>
-                    <h3 data-key="skill_back">Backend</h3>
-                    <p>Node.js, PostgreSQL, MongoDB, REST APIs</p>
-                </div>
-                <div class="skill-card glass-panel">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <h3 data-key="skill_tools">Tools</h3>
-                    <p>Git, Docker, Figma, AWS</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- START SCREEN -->
+<section id="start-screen" class="screen active">
 
-    <section id="projects" class="projects">
-        <div class="container hidden">
-            <h2 class="section-title" data-key="section_projects">Selected Projects</h2>
-            <div class="project-grid">
-                
-                <div class="project-card">
-                    <img src="https://i.ibb.co/pBhh5K54/Gemini-Generated-Image-8bw3ae8bw3ae8bw3.png" 
-                         alt="E-Commerce App" 
-                         class="project-img-bg"
-                         onclick="openLightbox(this.src)">
-                    <div class="project-overlay">
-                        <h3 data-key="proj1_title">E-Commerce App</h3>
-                        <p data-key="proj1_desc">A full-stack shopping solution with Stripe integration.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn-small">Live Demo</a>
-                            <a href="#" class="btn-small outline"><i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
+<div class="login-card">
 
-                <div class="project-card">
-                    <div class="project-img-bg fallback-bg-2"></div>
-                    <div class="project-overlay">
-                        <h3 data-key="proj2_title">AI Dashboard</h3>
-                        <p data-key="proj2_desc">Real-time data visualization platform using OpenAI APIs.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn-small">Live Demo</a>
-                        </div>
-                    </div>
-                </div>
+<div class="logo-container">
 
-            </div>
-        </div>
-    </section>
+<h1 class="logo-text">
+CLOCK-INN
+</h1>
 
-    <section id="contact" class="contact">
-        <div class="container hidden">
-            <h2 class="section-title" data-key="section_contact">Let's Connect</h2>
-            <form action="https://formspree.io/f/xzdojayg" method="POST" class="contact-form glass-panel">
-                <div class="input-group">
-                    <input type="text" name="name" required placeholder="Full Name">
-                </div>
-                <div class="input-group">
-                    <input type="email" name="email" required placeholder="Email Address">
-                </div>
-                <div class="input-group">
-                    <textarea name="message" required placeholder="Your Message" rows="5"></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message <i class="fa-solid fa-paper-plane"></i></button>
-            </form>
-        </div>
-    </section>
+<p class="logo-sub">
+QUIZ X EDITION
+</p>
 
-    <footer>
-        <p>&copy; 2026 Edi Kolgeci. Built with <i class="fa-solid fa-bolt" style="color: var(--accent-color);"></i></p>
-    </footer>
+</div>
 
-    <script src="script.js"></script>
+<div class="intro-text">
+
+<p>60 Questions. 6 Categories. 10 Seconds.</p>
+
+<p class="highlight">
+Precision is everything.
+</p>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="text"
+id="player-name"
+placeholder="Enter your name..."
+autocomplete="off"
+/>
+
+</div>
+
+<button
+id="start-btn"
+class="primary-btn"
+>
+CLOCK IN
+</button>
+
+</div>
+
+</section>
+
+<!-- QUIZ -->
+<section id="quiz-screen" class="screen">
+
+<header class="quiz-header">
+
+<span id="topic-display"></span>
+
+<span id="streak-badge"></span>
+
+<span id="question-counter"></span>
+
+</header>
+
+<!-- TIMER -->
+<div class="timer-section">
+
+<div class="timer-ring">
+
+<div id="clock-hand"></div>
+
+<span id="time-display">
+10
+</span>
+
+</div>
+
+</div>
+
+<!-- ALL OR NOTHING -->
+<div
+id="all-or-nothing"
+class="all-or-nothing"
+>
+
+⚠ ALL OR NOTHING ⚠
+<br>
+2X POINTS ACTIVATED
+
+</div>
+
+<!-- QUESTION -->
+<div class="question-section">
+
+<h2 id="question-text"></h2>
+
+</div>
+
+<!-- ANSWERS -->
+<div
+id="answers-container"
+class="options-section"
+></div>
+
+<!-- SCORE -->
+<div class="score-section">
+
+<p>SCORE</p>
+
+<div
+id="score-container"
+class="score-container"
+>
+
+<span id="score-display">
+0
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- RESULT -->
+<section
+id="result-screen"
+class="screen"
+>
+
+<div class="login-card result-card">
+
+<h2>
+SHIFT COMPLETE
+</h2>
+
+<h3
+id="result-name"
+class="result-name"
+></h3>
+
+<div class="stats-box">
+
+<p>
+Final Score:
+<span id="final-score"></span>
+</p>
+
+<p>
+Max Streak:
+<span id="final-streak"></span>
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- SOUND -->
+<audio
+id="tick-sound"
+preload="auto"
+>
+
+<source
+src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+type="audio/mpeg"
+/>
+
+</audio>
+
+<script src="script.js"></script>
+
 </body>
 </html>
