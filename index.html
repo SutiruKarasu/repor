@@ -1,207 +1,562 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Web RPG - Pro Edition</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; user-select: none; }
+        body { background: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        #game-container { width: 100%; max-width: 900px; height: 650px; background: #2c3e50; border: 4px solid #f1c40f; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .screen { width: 100%; height: 100%; display: none; padding: 20px; flex-direction: column; align-items: center; justify-content: flex-start; overflow-y: auto; }
+        .active { display: flex; }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        h1, h2, h3 { color: #f1c40f; text-shadow: 2px 2px #000; text-align: center; margin-bottom: 15px; }
+        
+        button { background: #34495e; color: white; border: 2px solid #fff; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px #1a252f; text-transform: uppercase; }
+        button:hover { background: #3b5998; transform: translateY(-2px); }
+        button:active { transform: translateY(2px); box-shadow: 0 0 #1a252f; }
+        button:disabled { background: #555; border-color: #444; color: #888; cursor: not-allowed; box-shadow: none; transform: none; }
+        
+        .btn-fire { background: #e74c3c; border-color: #c0392b; box-shadow: 0 4px #c0392b; }
+        .btn-water { background: #3498db; border-color: #2980b9; box-shadow: 0 4px #2980b9; }
+        .btn-grass { background: #2ecc71; border-color: #27ae60; box-shadow: 0 4px #27ae60; }
+        .btn-item { background: #f39c12; border-color: #d35400; box-shadow: 0 4px #d35400; }
 
-<title>Clock Inn Quiz X</title>
+        /* Starter */
+        .starter-container { display: flex; gap: 20px; justify-content: center; margin-top: 50px; }
+        .card { background: #34495e; border: 3px solid #2c3e50; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: #f1c40f; transform: scale(1.1); background: #2c3e50; }
+        .card img { height: 100px; }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+        /* Dashboard */
+        .dash-layout { display: flex; width: 100%; gap: 20px; }
+        .panel { background: #1e272e; border-radius: 8px; padding: 15px; border: 2px solid #576574; flex: 1; }
+        .party-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .party-slot { background: #34495e; padding: 10px; border-radius: 6px; display: flex; align-items: center; gap: 10px; cursor: pointer; border: 2px solid transparent; }
+        .party-slot:hover { border-color: #f1c40f; }
+        .party-slot.active-pkmn { border-color: #2ecc71; background: #27ae60; }
+        .party-slot img { height: 40px; }
+        
+        .map-buttons { display: flex; flex-direction: column; gap: 10px; }
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        /* Battle */
+        .battle-arena { display: flex; justify-content: space-between; width: 100%; height: 260px; background: url('https://play.pokemonshowdown.com/sprites/bg/bg-meadow.png') no-repeat center center; background-size: cover; border-radius: 8px; padding: 20px; position: relative; margin-bottom: 10px; border: 3px solid #000; }
+        .battle-slot { width: 40%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
+        .battle-slot img { height: 120px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); transition: 0.2s; }
+        
+        .info-box { background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px; border: 2px solid #fff; width: 100%; text-align: left; position: absolute; }
+        #player-info { bottom: 10px; left: 10%; }
+        #enemy-info { top: 10px; right: 10%; }
 
-<link rel="stylesheet" href="style.css">
+        .hp-bar-container { width: 100%; background: #555; height: 12px; border-radius: 6px; overflow: hidden; margin-top: 5px; border: 1px solid #fff; }
+        .hp-bar { width: 100%; height: 100%; transition: width 0.3s ease, background 0.3s ease; }
+        .hp-green { background: #2ecc71; }
+        .hp-yellow { background: #f1c40f; }
+        .hp-red { background: #e74c3c; }
 
+        .battle-controls { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; width: 100%; }
+        .moves-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .actions-grid { display: grid; grid-template-columns: 1fr; gap: 5px; }
+        
+        .log-box { width: 100%; height: 120px; background: rgba(0,0,0,0.9); border: 2px solid #7f8c8d; border-radius: 8px; padding: 10px; overflow-y: auto; font-family: monospace; font-size: 15px; color: #fff; margin-top: 10px; text-align: left; }
+
+        /* Animations */
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }
+        .shake { animation: shake 0.4s; }
+        @keyframes attackTackle { 0% { transform: translateX(0); } 50% { transform: translateX(30px); } 100% { transform: translateX(0); } }
+        .attack-anim { animation: attackTackle 0.3s ease-in-out; }
+    </style>
 </head>
-
 <body>
 
-<!-- BACKGROUND GEARS -->
-<div class="background-gears">
+<div id="game-container">
+    
+    <!-- STARTER SCREEN -->
+    <div id="screen-starter" class="screen active">
+        <h1>Wähle dein erstes Pokémon!</h1>
+        <div class="starter-container">
+            <div class="card" onclick="selectStarter('bulbasaur')">
+                <img src="https://play.pokemonshowdown.com/sprites/ani/bulbasaur.gif" alt="Bisasam">
+                <h3 style="color:#2ecc71;">Bisasam</h3>
+                <p>Typ: Pflanze</p>
+            </div>
+            <div class="card" onclick="selectStarter('charmander')">
+                <img src="https://play.pokemonshowdown.com/sprites/ani/charmander.gif" alt="Glumanda">
+                <h3 style="color:#e74c3c;">Glumanda</h3>
+                <p>Typ: Feuer</p>
+            </div>
+            <div class="card" onclick="selectStarter('squirtle')">
+                <img src="https://play.pokemonshowdown.com/sprites/ani/squirtle.gif" alt="Schiggy">
+                <h3 style="color:#3498db;">Schiggy</h3>
+                <p>Typ: Wasser</p>
+            </div>
+        </div>
+    </div>
 
-<div class="gear gear1"></div>
-<div class="gear gear2"></div>
-<div class="gear gear3"></div>
-<div class="gear gear4"></div>
+    <!-- DASHBOARD SCREEN -->
+    <div id="screen-dashboard" class="screen">
+        <h2>Abenteuer-Camp</h2>
+        
+        <div class="dash-layout">
+            <!-- Team Panel -->
+            <div class="panel">
+                <h3>Dein Team (Klick zum Wechseln)</h3>
+                <div class="party-grid" id="party-container"></div>
+                
+                <h3 style="margin-top:20px;">Inventar</h3>
+                <p>Pokébälle: <span id="inv-balls">0</span></p>
+                <p>Tränke: <span id="inv-potions">0</span></p>
+                
+                <button onclick="healParty()" style="width:100%; margin-top:15px;" class="btn-grass">Team Heilen (Kostenlos)</button>
+            </div>
 
-</div>
+            <!-- Map Panel -->
+            <div class="panel">
+                <h3>Reisekarte</h3>
+                <div class="map-buttons">
+                    <button onclick="explore('route1')">Route 1 (Lvl 1-3)</button>
+                    <button onclick="explore('route2')" id="btn-route2" disabled>Route 2 (Lvl 4-7)</button>
+                    <button onclick="explore('gym')" id="btn-gym" class="btn-fire" disabled>Arena: Rocko (Boss)</button>
+                </div>
+                <div style="margin-top:20px; font-size:12px; color:#aaa;">
+                    Tipp: Wasser schlägt Feuer. Feuer schlägt Pflanze. Pflanze schlägt Wasser & Gestein.
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div id="app">
+    <!-- BATTLE SCREEN -->
+    <div id="screen-battle" class="screen">
+        <div class="battle-arena">
+            <!-- Gegner -->
+            <div class="battle-slot" style="align-items: flex-end; width: 100%; position:absolute; top: 20px; right: 20px;">
+                <div class="info-box" id="enemy-info" style="width: 200px;">
+                    <strong id="enemy-name">Gegner</strong> Lvl <span id="enemy-level">1</span>
+                    <div class="hp-bar-container"><div id="enemy-hp-bar" class="hp-bar hp-green"></div></div>
+                </div>
+                <img id="enemy-sprite" src="" alt="Enemy" style="margin-right: 50px;">
+            </div>
+            
+            <!-- Spieler -->
+            <div class="battle-slot" style="align-items: flex-start; width: 100%; position:absolute; bottom: 20px; left: 20px;">
+                <img id="player-sprite" src="" alt="Player" style="margin-left: 50px;">
+                <div class="info-box" id="player-info" style="width: 200px;">
+                    <strong id="player-name">Name</strong> Lvl <span id="player-level">1</span>
+                    <div class="hp-bar-container"><div id="player-hp-bar" class="hp-bar hp-green"></div></div>
+                    <div id="player-hp-text" style="font-size:12px; text-align:right;">100/100</div>
+                </div>
+            </div>
+        </div>
 
-<!-- START SCREEN -->
-<section id="start-screen" class="screen active">
+        <div class="battle-controls">
+            <div class="moves-grid" id="battle-moves">
+                <!-- Dynamische Attacken -->
+            </div>
+            <div class="actions-grid">
+                <button class="btn-item" onclick="catchPokemon()" id="btn-catch">Pokéball werfen</button>
+                <button class="btn-item" onclick="usePotion()" id="btn-potion">Trank</button>
+                <button onclick="runAway()">Flucht</button>
+                <button onclick="megaEvolve()" id="btn-mega" style="background:#9b59b6; display:none;">MEGA</button>
+            </div>
+        </div>
 
-<div class="login-card">
-
-<div class="logo-container">
-
-<h1 class="logo-text">
-CLOCK-INN
-</h1>
-
-<p class="logo-sub">
-QUIZ X EDITION
-</p>
-
-</div>
-
-<div class="intro-text">
-
-<p>60 Questions. 6 Categories. 10 Seconds.</p>
-
-<p class="highlight">
-Precision is everything.
-</p>
-
-</div>
-
-<div class="input-group">
-
-<input
-type="text"
-id="player-name"
-placeholder="Enter your name..."
-autocomplete="off"
-/>
-
-</div>
-
-<button
-id="start-btn"
-class="primary-btn"
->
-CLOCK IN
-</button>
-
-</div>
-
-</section>
-
-<!-- QUIZ -->
-<section id="quiz-screen" class="screen">
-
-<header class="quiz-header">
-
-<span id="topic-display"></span>
-
-<span id="streak-badge"></span>
-
-<span id="question-counter"></span>
-
-</header>
-
-<!-- TIMER -->
-<div class="timer-section">
-
-<div class="timer-ring">
-
-<div id="clock-hand"></div>
-
-<span id="time-display">
-10
-</span>
-
-</div>
-
-</div>
-
-<!-- ALL OR NOTHING -->
-<div
-id="all-or-nothing"
-class="all-or-nothing"
->
-
-⚠ ALL OR NOTHING ⚠
-<br>
-2X POINTS ACTIVATED
+        <div class="log-box" id="battle-log"></div>
+    </div>
 
 </div>
 
-<!-- QUESTION -->
-<div class="question-section">
+<script>
+    // --- DATENBANK ---
+    const TYPES = { NORMAL: 'Normal', FIRE: 'Feuer', WATER: 'Wasser', GRASS: 'Pflanze', ELECTRIC: 'Elektro', ROCK: 'Gestein' };
+    
+    // Typen-Effektivität (Angreifer -> Verteidiger)
+    const TYPE_CHART = {
+        [TYPES.FIRE]: { [TYPES.GRASS]: 2.0, [TYPES.WATER]: 0.5, [TYPES.ROCK]: 0.5 },
+        [TYPES.WATER]: { [TYPES.FIRE]: 2.0, [TYPES.ROCK]: 2.0, [TYPES.GRASS]: 0.5 },
+        [TYPES.GRASS]: { [TYPES.WATER]: 2.0, [TYPES.ROCK]: 2.0, [TYPES.FIRE]: 0.5 },
+        [TYPES.ELECTRIC]: { [TYPES.WATER]: 2.0, [TYPES.GRASS]: 0.5 },
+        [TYPES.NORMAL]: { [TYPES.ROCK]: 0.5 },
+        [TYPES.ROCK]: { [TYPES.FIRE]: 2.0, [TYPES.NORMAL]: 1.0 } // Stark vereinfacht
+    };
 
-<h2 id="question-text"></h2>
+    const MOVES = {
+        tackle: { name: "Tackle", power: 40, type: TYPES.NORMAL },
+        scratch: { name: "Kratzer", power: 40, type: TYPES.NORMAL },
+        ember: { name: "Glut", power: 40, type: TYPES.FIRE, css: "btn-fire" },
+        watergun: { name: "Aquaknarre", power: 40, type: TYPES.WATER, css: "btn-water" },
+        vinewhip: { name: "Rankenhieb", power: 45, type: TYPES.GRASS, css: "btn-grass" },
+        thundershock: { name: "Donnerschock", power: 40, type: TYPES.ELECTRIC, css: "btn-item" },
+        rockthrow: { name: "Steinwurf", power: 50, type: TYPES.ROCK }
+    };
 
-</div>
+    const POKEDEX = {
+        bulbasaur: { id: 'bulbasaur', name: "Bisasam", type: TYPES.GRASS, hp: 45, atk: 49, def: 49, spd: 45, moves: ['tackle', 'vinewhip'], sprite: 'bulbasaur', mega: 'venusaur-mega' },
+        charmander: { id: 'charmander', name: "Glumanda", type: TYPES.FIRE, hp: 39, atk: 52, def: 43, spd: 65, moves: ['scratch', 'ember'], sprite: 'charmander', mega: 'charizard-megax' },
+        squirtle: { id: 'squirtle', name: "Schiggy", type: TYPES.WATER, hp: 44, atk: 48, def: 65, spd: 43, moves: ['tackle', 'watergun'], sprite: 'squirtle', mega: 'blastoise-mega' },
+        rattata: { id: 'rattata', name: "Rattfratz", type: TYPES.NORMAL, hp: 30, atk: 56, def: 35, spd: 72, moves: ['tackle'], sprite: 'rattata' },
+        pidgey: { id: 'pidgey', name: "Taubsi", type: TYPES.NORMAL, hp: 40, atk: 45, def: 40, spd: 56, moves: ['tackle'], sprite: 'pidgey' },
+        pikachu: { id: 'pikachu', name: "Pikachu", type: TYPES.ELECTRIC, hp: 35, atk: 55, def: 40, spd: 90, moves: ['tackle', 'thundershock'], sprite: 'pikachu' },
+        geodude: { id: 'geodude', name: "Kleinstein", type: TYPES.ROCK, hp: 40, atk: 80, def: 100, spd: 20, moves: ['tackle', 'rockthrow'], sprite: 'geodude' },
+        onix: { id: 'onix', name: "Onix (BOSS)", type: TYPES.ROCK, hp: 70, atk: 85, def: 160, spd: 70, moves: ['tackle', 'rockthrow'], sprite: 'onix' }
+    };
 
-<!-- ANSWERS -->
-<div
-id="answers-container"
-class="options-section"
-></div>
+    // --- GAME STATE ---
+    let player = {
+        party: [],
+        activeIdx: 0,
+        inventory: { pokeballs: 5, potions: 3 },
+        badges: 0
+    };
+    let enemy = null;
+    let battleState = { isActive: false, turn: 'player', canCatch: false, isBoss: false };
 
-<!-- SCORE -->
-<div class="score-section">
+    // --- HELPERS ---
+    function getEffectiveness(attackType, defType) {
+        if(TYPE_CHART[attackType] && TYPE_CHART[attackType][defType] !== undefined) {
+            return TYPE_CHART[attackType][defType];
+        }
+        return 1.0;
+    }
 
-<p>SCORE</p>
+    function createPokemon(dexId, level) {
+        const base = POKEDEX[dexId];
+        return {
+            id: dexId,
+            name: base.name,
+            type: base.type,
+            level: level,
+            maxHp: Math.floor(base.hp + (level * 2.5)),
+            hp: Math.floor(base.hp + (level * 2.5)),
+            atk: Math.floor(base.atk + (level * 2)),
+            def: Math.floor(base.def + (level * 2)),
+            spd: Math.floor(base.spd + (level * 2)),
+            moves: [...base.moves],
+            sprite: base.sprite,
+            mega: base.mega,
+            isMega: false,
+            exp: 0,
+            expNeeded: level * 100
+        };
+    }
 
-<div
-id="score-container"
-class="score-container"
->
+    // --- NAVIGATION & UI ---
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
 
-<span id="score-display">
-0
-</span>
+    function log(msg) {
+        const lb = document.getElementById('battle-log');
+        lb.innerHTML += `<div>> ${msg}</div>`;
+        lb.scrollTop = lb.scrollHeight;
+    }
 
-</div>
+    function updateHpBar(elementId, current, max) {
+        const pct = (current / max) * 100;
+        const bar = document.getElementById(elementId);
+        bar.style.width = `${Math.max(0, pct)}%`;
+        bar.className = 'hp-bar';
+        if(pct > 50) bar.classList.add('hp-green');
+        else if(pct > 20) bar.classList.add('hp-yellow');
+        else bar.classList.add('hp-red');
+    }
 
-</div>
+    // --- INITIALIZATION ---
+    function selectStarter(dexId) {
+        let starter = createPokemon(dexId, 5);
+        player.party.push(starter);
+        updateDashboard();
+        showScreen('screen-dashboard');
+    }
 
-</section>
+    function updateDashboard() {
+        // UI Updates
+        document.getElementById('inv-balls').innerText = player.inventory.pokeballs;
+        document.getElementById('inv-potions').innerText = player.inventory.potions;
 
-<!-- RESULT -->
-<section
-id="result-screen"
-class="screen"
->
+        // Render Party
+        const partyContainer = document.getElementById('party-container');
+        partyContainer.innerHTML = '';
+        player.party.forEach((pkmn, idx) => {
+            let div = document.createElement('div');
+            div.className = `party-slot ${idx === player.activeIdx ? 'active-pkmn' : ''}`;
+            div.onclick = () => { player.activeIdx = idx; updateDashboard(); };
+            div.innerHTML = `
+                <img src="https://play.pokemonshowdown.com/sprites/ani/${pkmn.sprite}.gif">
+                <div>
+                    <strong>${pkmn.name}</strong> Lvl ${pkmn.level}<br>
+                    <small>KP: ${pkmn.hp}/${pkmn.maxHp}</small>
+                </div>
+            `;
+            partyContainer.appendChild(div);
+        });
 
-<div class="login-card result-card">
+        // Unlocks
+        let highestLevel = Math.max(...player.party.map(p => p.level));
+        if(highestLevel >= 4) document.getElementById('btn-route2').disabled = false;
+        if(highestLevel >= 7) document.getElementById('btn-gym').disabled = false;
+    }
 
-<h2>
-SHIFT COMPLETE
-</h2>
+    function healParty() {
+        player.party.forEach(p => p.hp = p.maxHp);
+        alert("Alle Pokémon sind wieder fit!");
+        updateDashboard();
+    }
 
-<h3
-id="result-name"
-class="result-name"
-></h3>
+    // --- ENCOUNTER SYSTEM ---
+    function explore(area) {
+        let activePkmn = player.party[player.activeIdx];
+        if(activePkmn.hp <= 0) {
+            alert(`${activePkmn.name} hat keine KP mehr! Wechsle dein Pokémon oder heile es.`);
+            return;
+        }
 
-<div class="stats-box">
+        let pool = [];
+        let levelRange = [1, 3];
+        battleState.isBoss = false;
 
-<p>
-Final Score:
-<span id="final-score"></span>
-</p>
+        if(area === 'route1') {
+            pool = ['rattata', 'pidgey'];
+            levelRange = [2, 4];
+        } else if(area === 'route2') {
+            pool = ['pidgey', 'pikachu', 'geodude'];
+            levelRange = [4, 7];
+        } else if(area === 'gym') {
+            pool = ['onix'];
+            levelRange = [10, 10];
+            battleState.isBoss = true;
+        }
 
-<p>
-Max Streak:
-<span id="final-streak"></span>
-</p>
+        let randomMon = pool[Math.floor(Math.random() * pool.length)];
+        let randomLevel = Math.floor(Math.random() * (levelRange[1] - levelRange[0] + 1)) + levelRange[0];
+        
+        enemy = createPokemon(randomMon, randomLevel);
+        startBattle();
+    }
 
-</div>
+    // --- BATTLE SYSTEM ---
+    function startBattle() {
+        battleState.isActive = true;
+        battleState.canCatch = !battleState.isBoss;
+        document.getElementById('battle-log').innerHTML = '';
+        
+        let p = player.party[player.activeIdx];
+        p.isMega = false;
 
-</div>
+        // UI Setup
+        document.getElementById('btn-catch').disabled = !battleState.canCatch || player.inventory.pokeballs <= 0;
+        document.getElementById('btn-potion').disabled = player.inventory.potions <= 0;
+        document.getElementById('btn-mega').style.display = p.mega && p.level >= 5 ? 'block' : 'none';
+        document.getElementById('btn-mega').disabled = false;
 
-</section>
+        // Enemy UI
+        document.getElementById('enemy-sprite').src = `https://play.pokemonshowdown.com/sprites/ani/${enemy.sprite}.gif`;
+        document.getElementById('enemy-name').innerText = enemy.name;
+        document.getElementById('enemy-level').innerText = enemy.level;
+        
+        // Player UI
+        renderPlayerBattleUI();
+        
+        if(battleState.isBoss) log(`⚠️ ARENALEITER ROCKO fordert dich heraus! Er schickt ${enemy.name} in den Kampf!`);
+        else log(`Ein wildes ${enemy.name} erscheint!`);
 
-</div>
+        showScreen('screen-battle');
+    }
 
-<!-- SOUND -->
-<audio
-id="tick-sound"
-preload="auto"
->
+    function renderPlayerBattleUI() {
+        let p = player.party[player.activeIdx];
+        let spriteUrl = p.isMega ? p.mega : p.sprite;
+        
+        // Check if back sprite exists, fallback to normal ani
+        document.getElementById('player-sprite').src = `https://play.pokemonshowdown.com/sprites/ani-back/${spriteUrl}.gif`;
+        // Fallback hack for missing backsprites via error handling
+        document.getElementById('player-sprite').onerror = function() { this.src = `https://play.pokemonshowdown.com/sprites/ani/${spriteUrl}.gif`; };
 
-<source
-src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
-type="audio/mpeg"
-/>
+        document.getElementById('player-name').innerText = p.name;
+        document.getElementById('player-level').innerText = p.level;
+        document.getElementById('player-hp-text').innerText = `${p.hp}/${p.maxHp}`;
+        
+        updateHpBar('player-hp-bar', p.hp, p.maxHp);
+        updateHpBar('enemy-hp-bar', enemy.hp, enemy.maxHp);
 
-</audio>
+        // Generate Moves
+        const movesDiv = document.getElementById('battle-moves');
+        movesDiv.innerHTML = '';
+        p.moves.forEach(moveKey => {
+            let m = MOVES[moveKey];
+            let btn = document.createElement('button');
+            btn.innerText = `${m.name} (${m.type})`;
+            if(m.css) btn.className = m.css;
+            btn.onclick = () => executeTurn(moveKey);
+            movesDiv.appendChild(btn);
+        });
+    }
 
-<script src="script.js"></script>
+    function executeTurn(playerMoveKey) {
+        if(!battleState.isActive) return;
+        
+        let p = player.party[player.activeIdx];
+        let pMove = MOVES[playerMoveKey];
+        let eMoveKey = enemy.moves[Math.floor(Math.random() * enemy.moves.length)];
+        let eMove = MOVES[eMoveKey];
 
+        // Speed check determines order
+        let playerFirst = p.spd >= enemy.spd;
+
+        if(playerFirst) {
+            attack(p, enemy, pMove, 'player');
+            if(enemy.hp > 0) setTimeout(() => attack(enemy, p, eMove, 'enemy'), 1000);
+        } else {
+            attack(enemy, p, eMove, 'enemy');
+            if(p.hp > 0) setTimeout(() => attack(p, enemy, pMove, 'player'), 1000);
+        }
+    }
+
+    function attack(attacker, defender, move, role) {
+        if(attacker.hp <= 0) return; // Prevent dead pokemon from attacking
+
+        // Animation
+        let spriteId = role === 'player' ? 'player-sprite' : 'enemy-sprite';
+        let defSpriteId = role === 'player' ? 'enemy-sprite' : 'player-sprite';
+        document.getElementById(spriteId).classList.add('attack-anim');
+        setTimeout(() => document.getElementById(spriteId).classList.remove('attack-anim'), 300);
+
+        // Calculate Damage
+        let eff = getEffectiveness(move.type, defender.type);
+        let stab = (move.type === attacker.type) ? 1.5 : 1;
+        let random = (Math.random() * 0.15) + 0.85; // 0.85 to 1.0
+        
+        // Simplified Damage Formula
+        let rawDamage = ((2 * attacker.level / 5 + 2) * move.power * (attacker.atk / defender.def)) / 50 + 2;
+        let finalDamage = Math.floor(rawDamage * stab * eff * random);
+
+        defender.hp -= finalDamage;
+        if(defender.hp < 0) defender.hp = 0;
+
+        log(`▶ ${attacker.name} setzt ${move.name} ein!`);
+        
+        // Screen Shake & Effectiveness Text
+        if(eff > 1) { log(`<span style="color:#2ecc71;">Es ist sehr effektiv!</span>`); document.getElementById(defSpriteId).classList.add('shake'); }
+        if(eff < 1) log(`<span style="color:#e74c3c;">Es ist nicht sehr effektiv...</span>`);
+        
+        setTimeout(() => document.getElementById(defSpriteId).classList.remove('shake'), 400);
+
+        updateHpBar('player-hp-bar', player.party[player.activeIdx].hp, player.party[player.activeIdx].maxHp);
+        document.getElementById('player-hp-text').innerText = `${player.party[player.activeIdx].hp}/${player.party[player.activeIdx].maxHp}`;
+        updateHpBar('enemy-hp-bar', enemy.hp, enemy.maxHp);
+
+        checkBattleEnd();
+    }
+
+    function checkBattleEnd() {
+        let p = player.party[player.activeIdx];
+        
+        if(enemy.hp <= 0) {
+            battleState.isActive = false;
+            let expGained = enemy.level * 30;
+            log(`🎉 Du hast ${enemy.name} besiegt! ${expGained} EP erhalten.`);
+            
+            p.exp += expGained;
+            if(p.exp >= p.expNeeded) {
+                p.level++;
+                p.exp -= p.expNeeded;
+                p.expNeeded = p.level * 100;
+                let statGains = Math.floor(Math.random()*3)+2;
+                p.maxHp += statGains; p.atk += statGains; p.def += statGains; p.hp = p.maxHp;
+                log(`🌟 LEVEL UP! ${p.name} ist jetzt Level ${p.level}!`);
+            }
+
+            // Item Drops
+            if(Math.random() > 0.5) { player.inventory.pokeballs++; log("🎁 Pokéball gefunden!"); }
+            if(Math.random() > 0.7) { player.inventory.potions++; log("🎁 Trank gefunden!"); }
+            
+            if(battleState.isBoss) {
+                player.badges++;
+                alert("Du hast Rocko besiegt und den Felsorden erhalten!");
+            }
+
+            setTimeout(() => { updateDashboard(); showScreen('screen-dashboard'); }, 3000);
+        } else if(p.hp <= 0) {
+            battleState.isActive = false;
+            log(`💀 ${p.name} wurde besiegt!`);
+            setTimeout(() => { updateDashboard(); showScreen('screen-dashboard'); }, 2000);
+        }
+    }
+
+    // --- ACTIONS ---
+    function usePotion() {
+        if(!battleState.isActive || player.inventory.potions <= 0) return;
+        let p = player.party[player.activeIdx];
+        if(p.hp === p.maxHp) { log("KP sind bereits voll."); return; }
+        
+        player.inventory.potions--;
+        p.hp = Math.min(p.maxHp, p.hp + 50);
+        log(`💉 Du nutzt einen Trank. ${p.name} heilt 50 KP!`);
+        renderPlayerBattleUI();
+        document.getElementById('btn-potion').disabled = player.inventory.potions <= 0;
+        
+        // Enemy gets free hit
+        setTimeout(() => attack(enemy, p, MOVES[enemy.moves[0]], 'enemy'), 1000);
+    }
+
+    function catchPokemon() {
+        if(!battleState.canCatch || player.inventory.pokeballs <= 0 || !battleState.isActive) return;
+        player.inventory.pokeballs--;
+        document.getElementById('btn-catch').disabled = player.inventory.pokeballs <= 0;
+        
+        log(`Pokéball fliegt auf ${enemy.name}...`);
+        
+        // Catch Math
+        let catchRate = 1 - (enemy.hp / enemy.maxHp); // Geringere HP = bessere Chance
+        let catchRoll = Math.random();
+
+        setTimeout(() => {
+            if(catchRoll < catchRate + 0.2) { // Base 20% chance minimum
+                log(`✨ Erfolgreich! ${enemy.name} wurde gefangen!`);
+                battleState.isActive = false;
+                
+                // Heal and add to party
+                enemy.hp = enemy.maxHp;
+                enemy.exp = 0; enemy.expNeeded = enemy.level * 100;
+                
+                if(player.party.length < 6) {
+                    player.party.push(enemy);
+                    log(`Es wurde deinem Team hinzugefügt.`);
+                } else {
+                    log(`Dein Team ist voll! ${enemy.name} wurde freigelassen.`);
+                }
+                
+                setTimeout(() => { updateDashboard(); showScreen('screen-dashboard'); }, 3000);
+            } else {
+                log(`❌ Verdammt! ${enemy.name} ist ausgebrochen!`);
+                setTimeout(() => attack(enemy, player.party[player.activeIdx], MOVES[enemy.moves[0]], 'enemy'), 1000);
+            }
+        }, 1500);
+    }
+
+    function runAway() {
+        if(battleState.isBoss) { log("Du kannst nicht aus einem Arena-Kampf fliehen!"); return; }
+        log(`🏃 Erfolgreich geflohen!`);
+        battleState.isActive = false;
+        setTimeout(() => { updateDashboard(); showScreen('screen-dashboard'); }, 1500);
+    }
+
+    function megaEvolve() {
+        let p = player.party[player.activeIdx];
+        if(!p.mega || p.isMega) return;
+        
+        p.isMega = true;
+        p.name = `Mega-${p.name}`;
+        p.atk = Math.floor(p.atk * 1.5);
+        p.def = Math.floor(p.def * 1.5);
+        
+        document.getElementById('btn-mega').disabled = true;
+        log(`💥 RESONANZ! ${p.name.replace('Mega-', '')} vollzieht die Mega-Entwicklung! Stats massiv erhöht!`);
+        renderPlayerBattleUI();
+    }
+
+</script>
 </body>
 </html>
