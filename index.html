@@ -124,7 +124,7 @@
         }
 
         .sprite-display {
-            height: 100px;
+            height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -132,7 +132,8 @@
         }
 
         .sprite-display img {
-            max-height: 80px;
+            max-height: 90px;
+            object-fit: contain;
         }
 
         /* Action Buttons */
@@ -236,7 +237,6 @@
 <body>
 
 <div class="game-container">
-    <!-- Header Stats -->
     <div class="header-bar">
         <h2 id="current-location-text">Professor Eichs Labor</h2>
         <div class="stats-group">
@@ -247,39 +247,35 @@
         </div>
     </div>
 
-    <!-- Main Navigation Tabs -->
-    <div class="tabs id="main-nav">
+    <div class="tabs" id="main-nav">
         <button class="tab-btn active" onclick="switchView('adventure-view')">Abenteuer</button>
         <button class="tab-btn" onclick="switchView('team-view')">Mein Team</button>
         <button class="tab-btn" onclick="switchView('shop-view')">Supermarkt</button>
     </div>
 
-    <!-- Views Area -->
     <div class="view-content">
         
-        <!-- STARTER SELECTION -->
         <div id="starter-view">
             <h3>Wähle dein erstes Begleiter-Pokémon:</h3>
             <div class="starter-grid">
                 <div class="starter-card" onclick="claimStarter('bulbasaur', 'Bisasam')">
-                    <div class="sprite-display"><img src="https://play.pokemonshowdown.com/sprites/ani/bulbasaur.gif" alt="Bisasam"></div>
+                    <div class="sprite-display"><img src="https://img.pokemondb.net/sprites/black-white/anim/normal/bulbasaur.gif" alt="Bisasam"></div>
                     <h4>Bisasam</h4>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-top:4px;">Typ: Pflanze</p>
                 </div>
                 <div class="starter-card" onclick="claimStarter('charmander', 'Glumanda')">
-                    <div class="sprite-display"><img src="https://play.pokemonshowdown.com/sprites/ani/charmander.gif" alt="Glumanda"></div>
+                    <div class="sprite-display"><img src="https://img.pokemondb.net/sprites/black-white/anim/normal/charmander.gif" alt="Glumanda"></div>
                     <h4>Glumanda</h4>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-top:4px;">Typ: Feuer</p>
                 </div>
                 <div class="starter-card" onclick="claimStarter('squirtle', 'Schiggy')">
-                    <div class="sprite-display"><img src="https://play.pokemonshowdown.com/sprites/ani/squirtle.gif" alt="Schiggy"></div>
+                    <div class="sprite-display"><img src="https://img.pokemondb.net/sprites/black-white/anim/normal/squirtle.gif" alt="Schiggy"></div>
                     <h4>Schiggy</h4>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-top:4px;">Typ: Wasser</p>
                 </div>
             </div>
         </div>
 
-        <!-- ADVENTURE VIEW -->
         <div id="adventure-view" class="hidden">
             <div id="exploration-panel" style="text-align: center; padding: 20px 0;">
                 <p id="route-desc" style="margin-bottom: 20px; color: var(--text-muted);">Erkunde die Route, um wilden Pokémon, Trainern von Team Rocket oder nützlichen Items zu begegnen.</p>
@@ -289,10 +285,8 @@
                 </div>
             </div>
 
-            <!-- Active Combat Sub-Panel -->
             <div id="battle-panel" class="hidden">
                 <div class="battle-screen">
-                    <!-- Enemy Card -->
                     <div class="battle-unit">
                         <span class="stat-badge" style="position:absolute; top:8px; left:8px;" id="enemy-lvl">Lvl 5</span>
                         <h4 id="enemy-name">Wildes Rattfratz</h4>
@@ -300,7 +294,6 @@
                         <div class="hp-bar-container"><div class="hp-bar" id="enemy-hp-bar"></div></div>
                         <p id="enemy-hp-text">100 / 100 HP</p>
                     </div>
-                    <!-- Player Active Card -->
                     <div class="battle-unit">
                         <span class="stat-badge" style="position:absolute; top:8px; left:8px;" id="player-lvl">Lvl 5</span>
                         <h4 id="player-active-name">Bisasam</h4>
@@ -320,7 +313,6 @@
             <div class="log-box" id="battle-log">Log-Einträge erscheinen hier...</div>
         </div>
 
-        <!-- TEAM MANAGEMENT VIEW -->
         <div id="team-view" class="hidden">
             <h3>Dein aktives Team (Max. 6)</h3>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">Das erste Pokémon kämpft primär.</p>
@@ -330,7 +322,6 @@
             <div id="box-list-container" style="margin-top: 10px;"></div>
         </div>
 
-        <!-- SHOP VIEW -->
         <div id="shop-view" class="hidden">
             <h3>Lokaler Pokémon-Markt</h3>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Rüste dich für deine Reise aus.</p>
@@ -408,7 +399,7 @@
 
     // View Routing Management
     function switchView(viewId) {
-        if (state.party.length === 0) return; // Prevent navigation before choosing starter
+        if (state.party.length === 0) return; 
         
         document.getElementById('starter-view').classList.add('hidden');
         document.getElementById('adventure-view').classList.add('hidden');
@@ -417,7 +408,6 @@
         
         document.getElementById(viewId).classList.remove('hidden');
         
-        // Update Active Tab styles
         const tabs = document.querySelectorAll('.tab-btn');
         tabs.forEach(btn => btn.classList.remove('active'));
         
@@ -490,7 +480,7 @@
             row.className = "list-item";
             row.innerHTML = `
                 <div style="display:flex; align-items:center; gap:12px;">
-                    <img src="https://play.pokemonshowdown.com/sprites/ani/${p.id}.gif" style="height:35px;">
+                    <img src="https://img.pokemondb.net/sprites/black-white/anim/normal/${p.id}.gif" style="height:35px;">
                     <div><strong>${p.name}</strong> (Lvl ${p.lvl}) <br> <small>HP: ${p.hp}/${p.maxHp} | Exp: ${p.exp}/100</small></div>
                 </div>
                 <div class="item-controls">
@@ -511,7 +501,7 @@
             row.className = "list-item";
             row.innerHTML = `
                 <div style="display:flex; align-items:center; gap:12px;">
-                    <img src="https://play.pokemonshowdown.com/sprites/ani/${p.id}.gif" style="height:35px;">
+                    <img src="https://img.pokemondb.net/sprites/black-white/anim/normal/${p.id}.gif" style="height:35px;">
                     <div><strong>${p.name}</strong> (Lvl ${p.lvl})</div>
                 </div>
                 <div class="item-controls">
@@ -561,27 +551,23 @@
         }
     }
 
-    // Core Loop: Exploration Logic (Encounters Matrix)
+    // Core Loop: Exploration Logic
     function exploreRoute() {
         const stage = ADVENTURE_STAGES[state.currentStageIndex];
         const rand = Math.random();
 
         document.getElementById('exploration-panel').classList.add('hidden');
         document.getElementById('battle-panel').classList.remove('hidden');
-        document.getElementById('main-nav').style.pointerEvents = 'none'; // Lock Tab switching mid-combat
+        document.getElementById('main-nav').style.pointerEvents = 'none'; 
 
         if (rand < 0.45) {
-            // 45% Chance: Wild Encounter
             generateWildEncounter(stage);
         } else if (rand < 0.70) {
-            // 25% Chance: Team Rocket Attack
             generateRocketEncounter(stage);
         } else if (rand < 0.85) {
-            // 15% Chance: Item Found
             findRandomItem();
             exitBattleState();
         } else {
-            // 15% Chance: Clear Route Ahead
             logMessage("Die Route scheint ruhig zu sein. Nichts passiert.");
             exitBattleState();
         }
@@ -634,7 +620,7 @@
                 atk: POKEMON_DB["rattata"].atk + Math.floor(randLvl/2)
             }]
         };
-        document.getElementById('btn-action-catch').classList.add('hidden'); // Cannot catch trainer mons
+        document.getElementById('btn-action-catch').classList.add('hidden'); 
         setupBattleUI();
         logMessage(`Team Rocket Rüpel fordert dich heraus! Er schickt Rattfratz in den Kampf.`);
     }
@@ -642,7 +628,6 @@
     function startGymBattle() {
         const stage = ADVENTURE_STAGES[state.currentStageIndex];
         
-        // Deep clone lines
         let lineup = stage.lineup.map(m => {
             const t = POKEMON_DB[m.id];
             return {
@@ -675,16 +660,16 @@
         const activeEnemy = state.activeBattle.enemyLineup[state.activeBattle.enemyIndex];
         const activePlayer = state.party.find(p => p.hp > 0) || state.party[0];
 
-        // Enemy View
+        // Enemy View (Front Anim)
         document.getElementById('enemy-name').innerText = activeEnemy.name;
         document.getElementById('enemy-lvl').innerText = `Lvl ${activeEnemy.lvl}`;
-        document.getElementById('enemy-sprite').src = `https://play.pokemonshowdown.com/sprites/ani/${activeEnemy.id}.gif`;
+        document.getElementById('enemy-sprite').src = `https://img.pokemondb.net/sprites/black-white/anim/normal/${activeEnemy.id}.gif`;
         updateHpBar('enemy', activeEnemy.hp, activeEnemy.maxHp);
 
-        // Player View
+        // Player View (Back Anim)
         document.getElementById('player-active-name').innerText = activePlayer.name;
         document.getElementById('player-lvl').innerText = `Lvl ${activePlayer.lvl}`;
-        document.getElementById('player-sprite').src = `https://play.pokemonshowdown.com/sprites/ani-back/${activePlayer.id}.gif`;
+        document.getElementById('player-sprite').src = `https://img.pokemondb.net/sprites/black-white/anim/back/normal/${activePlayer.id}.gif`;
         updateHpBar('player', activePlayer.hp, activePlayer.maxHp);
     }
 
@@ -705,7 +690,7 @@
         state.activeBattle = null;
         document.getElementById('battle-panel').classList.add('hidden');
         document.getElementById('exploration-panel').classList.remove('hidden');
-        document.getElementById('main-nav').style.pointerEvents = 'auto'; // Unlock Navigation
+        document.getElementById('main-nav').style.pointerEvents = 'auto'; 
         renderUI();
     }
 
@@ -746,14 +731,12 @@
             state.items.pokeballs--;
             logMessage("Du wirfst einen Pokéball...");
             
-            // Capture Calculation based on HP deficit
             const catchChance = 1.0 - (activeEnemy.hp / activeEnemy.maxHp);
-            const roll = Math.random() + 0.15; // Baseline catch boost
+            const roll = Math.random() + 0.15; 
 
             if (roll > catchChance) {
                 logMessage(`Klick... Klick... Zack! ${activeEnemy.name} wurde gefangen!`);
                 
-                // Clean state for captured target string asset handling
                 let newMon = {
                     id: activeEnemy.id,
                     name: activeEnemy.name.replace("Wildes ", ""),
@@ -779,7 +762,6 @@
         }
 
         if (action === 'attack') {
-            // Player Attack phase
             let dmgToEnemy = Math.floor(activePlayer.atk * (1 + (activePlayer.lvl * 0.05)));
             activeEnemy.hp = Math.max(0, activeEnemy.hp - dmgToEnemy);
             logMessage(`${activePlayer.name} fügt ${activeEnemy.name} ${dmgToEnemy} Schaden zu.`);
@@ -787,7 +769,6 @@
             if (activeEnemy.hp <= 0) {
                 logMessage(`${activeEnemy.name} wurde besiegt!`);
                 
-                // Process Exp gains
                 activePlayer.exp += Math.floor(30 * (activeEnemy.lvl / activePlayer.lvl));
                 if(activePlayer.exp >= 100) {
                     activePlayer.lvl++;
@@ -798,10 +779,8 @@
                     logMessage(`Level Up! ${activePlayer.name} erreicht Level ${activePlayer.lvl}!`);
                 }
 
-                // Check for next team lineup links
                 state.activeBattle.enemyIndex++;
                 if (state.activeBattle.enemyIndex >= state.activeBattle.enemyLineup.length) {
-                    // Entire enemy party down -> Match Victory Action
                     processMatchVictory();
                     return;
                 } else {
@@ -813,7 +792,6 @@
             }
         }
 
-        // Enemy Retaliation Phase (if active enemy survived and action was dynamic combat action)
         let dmgToPlayer = Math.floor(activeEnemy.atk * 0.8);
         activePlayer.hp = Math.max(0, activePlayer.hp - dmgToPlayer);
         logMessage(`${activeEnemy.name} kontert und fügt ${activePlayer.name} ${dmgToPlayer} Schaden zu.`);
@@ -822,9 +800,8 @@
             logMessage(`${activePlayer.name} ist besiegt!`);
             let nextAvailable = state.party.find(p => p.hp > 0);
             if(!nextAvailable) {
-                logMessage("Alle deine Pokémon sind besiegt! Du bist ohnmächtig geworden und verlierst Geld.");
+                logMessage("Alle deine Pokémon sind besiegt! Du bist ohnmächtig geworden.");
                 state.money = Math.max(0, state.money - 400);
-                // Whiteout revive routine
                 state.party.forEach(p => p.hp = p.maxHp);
                 exitBattleState();
                 return;
@@ -852,13 +829,9 @@
             logMessage(`Unglaublich! Du hast die Arena gemeistert und erhältst den ${stage.badge}!`);
         }
 
-        // Advance to next stage route index automatically
         state.currentStageIndex++;
         exitBattleState();
     }
-
-    // Auto boot application
-    renderUI();
 </script>
 
 </body>
